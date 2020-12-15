@@ -2,9 +2,10 @@ import Model from './model.js';
 import View from './view.js';
 
 class Controller {
-  constructor() {
+  constructor(options) {
+    const { map, list } = options;
     this.model = new Model();
-    this.view = new View();
+    this.view = new View(map, list);
   }
 
   setCountry(name) {
