@@ -13,7 +13,7 @@ class Model {
 
   getCurrentCountry(countryName) {
     this.currentCountry = countryName;
-    return fetch('https://api.covid19api.com/summary')
+    return fetch(this.links.summary)
       .then(r => r.json(), err => {
         throw new Error('Country not found, check the name: ' + err);
       })
