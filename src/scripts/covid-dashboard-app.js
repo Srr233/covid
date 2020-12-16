@@ -1,5 +1,8 @@
+import StatisticsTable from './statistics-table-scripts/controller.js';
+
 export default class CovidDashboardApp {
   static initialize() {
-    throw new Error('Not implemented');
+    const statisticsTable = new StatisticsTable();
+    statisticsTable.setCountry('ZA');
   }
 }

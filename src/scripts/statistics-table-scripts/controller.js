@@ -1,18 +1,17 @@
 import Model from './model.js';
-import View from './view.js';
 
 class Controller {
-  constructor(options) {
-    const { map, list } = options;
+  constructor() {
     this.model = new Model();
-    this.view = new View(map, list);
+    this.test = null;
   }
 
   setCountry(countryCode) {
-    const statusCountry = this.model.getCurrentCountry(countryCode);
-    statusCountry.then(res => {
-      this.view.updateTable(res);
-    }, err => { throw new Error(err); });
+    this.model.setCurrentCountry(countryCode);
+  }
+
+  test() {
+    this.test = false;
   }
 }
 
