@@ -25,12 +25,7 @@ class Model {
         reject(new Error('Country not found!'));
       }
     });
-
-    if (currentCountry) {
-      this.currentCountry = currentCountry;
-    } else {
-      throw new Error('Country not found!');
-    }
+    this.currentCountry = currentCountry;
   }
 }
 
