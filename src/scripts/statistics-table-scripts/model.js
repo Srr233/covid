@@ -1,5 +1,4 @@
 import View from './view.js';
-import { forModel } from './services.js';
 
 class Model {
   constructor() {
