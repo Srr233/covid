@@ -1,5 +1,7 @@
+import InteractiveMap from './interactive-map/interactive-map';
+
 export default class CovidDashboardApp {
   static initialize() {
-    throw new Error('Not implemented');
+    InteractiveMap.initialize();
   }
 }
