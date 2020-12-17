@@ -12,6 +12,10 @@ class Controller {
   setGlobal() {
     this.model.setAllData();
   }
+
+  init() {
+    this.model.init();
+  }
 }
 
 export default Controller;

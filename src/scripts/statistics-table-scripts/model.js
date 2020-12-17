@@ -27,6 +27,11 @@ class Model {
     });
     this.currentCountry = currentCountry;
   }
+
+  async init() {
+    const json = await forModel.getAllData(this.summary);
+    this.view.init(json);
+  }
 }
 
 export default Model;

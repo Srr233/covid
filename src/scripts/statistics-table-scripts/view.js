@@ -1,11 +1,20 @@
+import { forView } from './services.js';
+
 class View {
   constructor() {
-    this.wrapperMap = null;
-    this.wrapperListCountries = null;
+    this.wrapperTable = document.querySelector('#wrap');
+    this.table = null;
   }
 
   updateTable(options) {
-    this.wrapperMap = options;
+    if (!this.table) {
+      this.table = forView.createTable(options);
+    }
+  }
+
+  init(json) {
+    this.table = forView.createTable(json.Global);
+    this.wrapperTable.insertAdjacentElement('beforeend', this.table);
   }
 }
 
