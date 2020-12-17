@@ -68,6 +68,36 @@ const forView = {
     </div>`;
     wrapper.insertAdjacentHTML('beforeend', allTableHTML);
     return wrapper;
+  },
+  createParagraph({
+    country, number, status, type
+  }) {
+    const wrapper = document.createElement('p');
+    const allInfoHTML = `
+    <span class="ST__${type}-list-number">${number}</span>
+    <span class="ST__${type}-list-status">${status}</span>
+    <span class="ST__${type}-list-country">${country}</span>`;
+    wrapper.insertAdjacentHTML('beforeend', allInfoHTML);
+    return wrapper;
+  },
+  // here is not implemented sort, I need to do it
+  sort(arr) {
+    const groups = Array.isArray(arr) ? arr : Array.from(arr);
+    groups.sort((a, b) => {
+      const elem1 = a.firstElementChild;
+      const elem2 = b.firstElementChild;
+      const n1 = elem1.textContent.split(' ').join('');
+      const n2 = elem2.textContent.split(' ').join('');
+      return n2 - n1;
+    });
+    return groups;
+  },
+  addAllChildren(parent, childrenArray) {
+    const [wrapper, children] = [parent, childrenArray];
+
+    for (let i = 0; i < children.length; i += 1) {
+      wrapper.insertAdjacentElement('beforeend', children[i]);
+    }
   }
 };
 export { forModel, forView };
