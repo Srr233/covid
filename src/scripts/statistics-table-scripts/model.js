@@ -6,26 +6,28 @@ class Model {
     this.view = new View();
     this.summary = fetch('https://api.covid19api.com/summary');
     this.currentCountry = {};
+    this.allInfo = null;
   }
 
   async setAllData() {
-    const json = await forModel.getAllData(this.summary);
-    this.view.updateTable(json);
+    if (this.allInfo) {
+      this.view.updateTable(this.allInfo);
+    } else {
+      const json = await forModel.getAllData(this.summary);
+      this.allInfo = json;
+      this.view.updateTable(json);
+    }
   }
 
   async setCurrentCountry(countryCode) {
     this.currentCountryCode = countryCode;
+    const currentCountry = this.allInfo.find(item => item.CountryCode === countryCode);
 
-    const json = await forModel.getAllData(this.summary);
-    const currentCountry = await new Promise((resolve, reject) => {
-      const res = json.Countries.find(item => item.CountryCode === countryCode);
-      if (res) {
-        resolve(res);
-      } else {
-        reject(new Error('Country not found!'));
-      }
-    });
-    this.currentCountry = currentCountry;
+    if (currentCountry) {
+      this.currentCountry = currentCountry;
+    } else {
+      throw new Error('Country not found!');
+    }
   }
 
   async init() {
