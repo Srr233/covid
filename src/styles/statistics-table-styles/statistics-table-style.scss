@@ -1,0 +1,158 @@
+
+$scrollbar-thumb: #5c5c5c;
+$scrollbar: #404040;
+$primary-color-1: #fff;
+$primary-color-2: #bdbdbd;
+$primary-color-3: #2c2c2c;
+* {
+     box-sizing: border-box;
+}
+%list {
+    display: flex;
+    flex-direction: column;
+}
+%list-name-wrap {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+}
+%padding-blocks {
+    padding: 0 1em;
+}
+%scrollBar {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+%colors {
+    background-color: $primary-color-3;
+}
+%buttons-wrap {
+    display: flex;
+    justify-content: space-between;
+    border-radius: 0 0 10px 10px;
+    color: $primary-color-2;
+
+    svg {
+        background-color: $primary-color-1;
+        border-radius: 50%;
+    }
+    @extend %colors;
+}
+.ST {
+    display: flex;
+    height: 100%;
+    justify-items: center;
+    font-size: 16px;
+
+    div + div {
+        margin: 0 10px;
+    }
+    p {
+        margin: .5em 0;
+        border-bottom: 1px solid $primary-color-1;
+    }
+    button {
+        background-color: transparent;
+        border-color: transparent;
+        color: transparent;
+    }
+        &__total-wrapper {
+            width: 50%;
+            @extend %padding-blocks;
+            @extend %colors;
+        }
+		&__total {
+            height: 100%;
+            @extend %scrollBar;
+        }
+
+		&__total-name-wrapper {
+            background-color: $primary-color-3;
+            width: 100%;
+            top: 0;
+            @extend %list-name-wrap;
+        }
+
+		&__total-name {
+            color: $primary-color-1;
+        }
+
+		&__total-number {
+            color: $primary-color-1;
+        }
+
+		&__total-list {
+            @extend %list;
+        }
+        &__total-list-country {
+            color: $primary-color-1;
+        }
+        &__total-list-number {
+
+        }
+        &__total-list-status {
+            color: $primary-color-2;
+        }
+
+        &__one-day-wrapper {
+            width: 50%;
+            @extend %padding-blocks;
+            @extend %colors;
+        }
+		&__one-day {
+            height: 100%;
+            @extend %scrollBar;
+        }
+
+		&__one-day-name-wrapper {
+            background-color: $primary-color-3;
+            width: 100%;
+            top: 0;
+            @extend %list-name-wrap;
+        }
+
+		&__one-day-name {
+            color: $primary-color-1;
+        }
+
+        &__one-day-number {
+            color: $primary-color-1;
+        }
+        
+        &__one-day-list {
+            @extend %list;
+        }
+        &__one-day-list-country {
+            color: $primary-color-1;
+        }
+        &__one-day-list-number {
+
+        }
+        &__one-day-list-status {
+            color: $primary-color-2;
+        }
+
+
+
+        &__total-buttons {
+            @extend %buttons-wrap;
+            &__total-buttons__left {}
+
+            &__total-buttons__right {}
+        }
+
+        &__one-day-buttons {
+            @extend %buttons-wrap;
+            &__one-day-buttons__left {
+
+            }
+            &__one-day-buttons__right {
+
+            }
+        }
+        &__total-current-status {
+        }
+        &__one-day-current-status {
+        }
+}
+
