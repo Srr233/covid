@@ -22,7 +22,7 @@ export default class Start {
         const sortWrapper = document.createElement("div");
         pageWrapper.classList.add("page-wrapper");
         globalCasesVal.classList.add("global-cases-value");
-        globalCasesVal.classList.add("global-cases-txt");
+        globalCasesTxt.classList.add("global-cases-txt");
         globalCases.classList.add("global-cases");
         dataTableHeader.classList.add("table-header");
         sortWrapper.classList.add("sort-wrapper");

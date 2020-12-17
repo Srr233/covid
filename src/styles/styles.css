@@ -1,0 +1,33 @@
+.page-wrapper {
+    background: #2c2c2c;    
+    width: 20vw;
+    color: #ffffff;
+}
+.global-cases {
+    display: flex;
+    flex-direction: column;    
+    text-align: center;  
+}
+.global-cases-value {
+    font-size: 3rem;
+    color: red;
+}
+h3 {
+    text-align: center;
+}
+.data-cell, .sort-wrapper {
+    display: grid;
+    grid-template-columns: 20% 50% 30%;  
+    border-bottom: 2px solid #404040;   
+}
+.cell-value {
+    color: red;
+}
+.sort-field:hover, .input-field:hover {
+    cursor: pointer;
+    font-weight: bold;
+}
+.hide {
+    display: none;
+}
+
