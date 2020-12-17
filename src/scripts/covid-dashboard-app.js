@@ -1,5 +1,7 @@
+import GraphController from './graph/GraphController.js';
+
 export default class CovidDashboardApp {
   static initialize() {
-    throw new Error('Not implemented');
+    new GraphController().initialize();
   }
 }
