@@ -35,6 +35,7 @@
 .ST__one-day-buttons svg, .ST__total-buttons svg {
   background-color: #fff;
   border-radius: 50%;
+  pointer-events: none;
 }
 
 .ST {
@@ -75,6 +76,9 @@
 .ST__total-list-country {
   color: #fff;
 }
+.ST__total-list-number {
+  color: #bdbdbd;
+}
 .ST__total-list-status {
   color: #bdbdbd;
 }
@@ -97,6 +101,9 @@
 }
 .ST__one-day-list-country {
   color: #fff;
+}
+.ST__one-day-list-number {
+  color: #bdbdbd;
 }
 .ST__one-day-list-status {
   color: #bdbdbd;

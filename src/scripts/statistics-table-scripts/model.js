@@ -30,8 +30,13 @@ class Model {
     }
   }
 
+  changeList(options) {
+    this.view.changeList(options, this.allInfo);
+  }
+
   async init() {
     const json = await forModel.getAllData(this.summary);
+    this.allInfo = json;
     this.view.init(json);
   }
 }

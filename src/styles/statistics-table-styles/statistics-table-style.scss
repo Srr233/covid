@@ -26,6 +26,7 @@ $primary-color-3: #2c2c2c;
 %colors {
     background-color: $primary-color-3;
 }
+
 %buttons-wrap {
     display: flex;
     justify-content: space-between;
@@ -35,6 +36,7 @@ $primary-color-3: #2c2c2c;
     svg {
         background-color: $primary-color-1;
         border-radius: 50%;
+        pointer-events: none;
     }
     @extend %colors;
 }
@@ -88,7 +90,7 @@ $primary-color-3: #2c2c2c;
             color: $primary-color-1;
         }
         &__total-list-number {
-
+            color: $primary-color-2;
         }
         &__total-list-status {
             color: $primary-color-2;
@@ -126,7 +128,7 @@ $primary-color-3: #2c2c2c;
             color: $primary-color-1;
         }
         &__one-day-list-number {
-
+            color: $primary-color-2;
         }
         &__one-day-list-status {
             color: $primary-color-2;
@@ -136,18 +138,18 @@ $primary-color-3: #2c2c2c;
 
         &__total-buttons {
             @extend %buttons-wrap;
-            &__total-buttons__left {}
+            &__total-buttons__left {
+            }
 
-            &__total-buttons__right {}
+            &__total-buttons__right {
+            }
         }
 
         &__one-day-buttons {
             @extend %buttons-wrap;
             &__one-day-buttons__left {
-
             }
             &__one-day-buttons__right {
-
             }
         }
         &__total-current-status {

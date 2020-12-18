@@ -6,50 +6,81 @@ class View {
     this.table = null;
   }
 
-  updateTable(options) {
-    if (!this.table) {
-      this.table = forView.createTable(options);
+  changeList(options, allInfo) {
+    const { time, direction, status } = options;
+    const nextStatus = forView.getNextTypeStatistics(status, direction);
+    if (time === 'oneDay') {
+      const currentNameInfo = forView.getCurrentNameInfo(nextStatus, 'one-day');
+      this.table.querySelector('.ST__one-day-current-status').textContent = `last ${nextStatus}`;
+      this.table.querySelector('.ST__one-day-name').textContent = `Last ${nextStatus}`;
+      this.table.querySelector('.ST__one-day-number').textContent = `${allInfo.Global[currentNameInfo].toLocaleString()}`;
+
+      const newList = forView.createList(allInfo.Countries, nextStatus, 'one-day');
+      forView.clearChildren(this.listLastDay);
+
+      newList.forEach(item => {
+        const forLast = forView.createParagraph(item);
+        this.listLastDay.insertAdjacentElement('beforeend', forLast);
+      });
+      const listLastDay = forView.sort(this.listLastDay.children);
+      forView.addAllChildren(this.listLastDay, listLastDay);
+    } else if (time === 'total') {
+      const currentNameInfo = forView.getCurrentNameInfo(nextStatus, 'total');
+      this.table.querySelector('.ST__total-current-status').textContent = `total ${nextStatus}`;
+      this.table.querySelector('.ST__total-name').textContent = `Global ${nextStatus}`;
+      this.table.querySelector('.ST__total-number').textContent = `${allInfo.Global[currentNameInfo].toLocaleString()}`;
+
+      const newList = forView.createList(allInfo.Countries, nextStatus, 'total');
+      forView.clearChildren(this.listTotal);
+
+      newList.forEach(item => {
+        const forLast = forView.createParagraph(item);
+        this.listTotal.insertAdjacentElement('beforeend', forLast);
+      });
+      const forTotal = forView.sort(this.listTotal.children);
+      forView.addAllChildren(this.listTotal, forTotal);
     }
   }
 
   init(json) {
     /*
-    sort info by decreasing
     add data-* in all paragraph with name of code country
     */
     const global = json.Global;
     const countries = json.Countries.slice();
     this.table = forView.createTable(global);
     this.wrapperTable.insertAdjacentElement('beforeend', this.table);
-    this.listGlobal = document.querySelector('.ST__total-list');
+    this.listTotal = document.querySelector('.ST__total-list');
     this.listLastDay = document.querySelector('.ST__one-day-list');
 
     for (let i = 0; i < countries.length; i += 1) {
       const currentCountry = countries[i];
-      const globalInfo = {
+      const totalInfo = {
         country: currentCountry.Country,
-        number: currentCountry.TotalDeaths,
+        number: currentCountry.TotalDeaths.toLocaleString(),
         status: 'deaths',
-        type: 'total'
+        type: 'total',
+        code: currentCountry.CountryCode
       };
-      const forGlobal = forView.createParagraph(globalInfo);
+      const forTotal = forView.createParagraph(totalInfo);
 
       const lastInfo = {
         country: currentCountry.Country,
-        number: currentCountry.NewDeaths,
+        number: currentCountry.NewDeaths.toLocaleString(),
         status: 'deaths',
-        type: 'one-day'
+        type: 'one-day',
+        code: currentCountry.CountryCode
       };
       const forLast = forView.createParagraph(lastInfo);
-      this.listGlobal.insertAdjacentElement('beforeend', forGlobal);
+      this.listTotal.insertAdjacentElement('beforeend', forTotal);
       this.listLastDay.insertAdjacentElement('beforeend', forLast);
     }
-    const globalList = forView.sort(this.listGlobal.children);
+    const globalList = forView.sort(this.listTotal.children);
     const listLastDay = forView.sort(this.listLastDay.children);
 
-    forView.clearChildren(this.listGlobal);
+    forView.clearChildren(this.listTotal);
     forView.clearChildren(this.listLastDay);
-    forView.addAllChildren(this.listGlobal, globalList);
+    forView.addAllChildren(this.listTotal, globalList);
     forView.addAllChildren(this.listLastDay, listLastDay);
   }
 }
