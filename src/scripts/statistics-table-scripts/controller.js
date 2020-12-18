@@ -5,8 +5,8 @@ class Controller {
     this.model = new Model();
   }
 
-  setCountry(countryCode) {
-    this.model.setCurrentCountry(countryCode);
+  setCountry(code) {
+    this.model.setCurrentCountry(code);
   }
 
   setGlobal() {

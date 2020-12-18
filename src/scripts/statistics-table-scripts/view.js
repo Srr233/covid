@@ -9,8 +9,12 @@ class View {
   changeList(options, allInfo) {
     const { time, direction, status } = options;
     const nextStatus = forView.getNextTypeStatistics(status, direction);
+    const allStatus = {
+      oneDay: forView.getCurrentNameInfo(nextStatus, 'one-day'),
+      total: forView.getCurrentNameInfo(nextStatus, 'total')
+    };
     if (time === 'oneDay') {
-      const currentNameInfo = forView.getCurrentNameInfo(nextStatus, 'one-day');
+      const currentNameInfo = allStatus.oneDay;
       this.table.querySelector('.ST__one-day-current-status').textContent = `last ${nextStatus}`;
       this.table.querySelector('.ST__one-day-name').textContent = `Last ${nextStatus}`;
       this.table.querySelector('.ST__one-day-number').textContent = `${allInfo.Global[currentNameInfo].toLocaleString()}`;
@@ -24,8 +28,8 @@ class View {
       });
       const listLastDay = forView.sort(this.listLastDay.children);
       forView.addAllChildren(this.listLastDay, listLastDay);
-    } else if (time === 'total') {
-      const currentNameInfo = forView.getCurrentNameInfo(nextStatus, 'total');
+    } if (time === 'total') {
+      const currentNameInfo = allStatus.total;
       this.table.querySelector('.ST__total-current-status').textContent = `total ${nextStatus}`;
       this.table.querySelector('.ST__total-name').textContent = `Global ${nextStatus}`;
       this.table.querySelector('.ST__total-number').textContent = `${allInfo.Global[currentNameInfo].toLocaleString()}`;
@@ -40,12 +44,34 @@ class View {
       const forTotal = forView.sort(this.listTotal.children);
       forView.addAllChildren(this.listTotal, forTotal);
     }
+
+    return allStatus;
+  }
+
+  selectOne(currentCountry, status, code) {
+    const optionsLast = {
+      country: currentCountry.Country,
+      type: 'one-day',
+      status: forView.getCurrentNameInfo(status.oneDay, ''),
+      number: currentCountry[status.oneDay].toLocaleString(),
+      code: code
+    };
+    const optionsTotal = {
+      country: currentCountry.Country,
+      type: 'total',
+      status: forView.getCurrentNameInfo(status.total, ''),
+      number: currentCountry[status.total].toLocaleString(),
+      code: code
+    };
+    const oneDayElement = forView.createParagraph(optionsLast);
+    const totalElement = forView.createParagraph(optionsTotal);
+    forView.clearChildren(this.listLastDay);
+    forView.clearChildren(this.listTotal);
+    forView.addAllChildren(this.listLastDay, [oneDayElement]);
+    forView.addAllChildren(this.listTotal, [totalElement]);
   }
 
   init(json) {
-    /*
-    add data-* in all paragraph with name of code country
-    */
     const global = json.Global;
     const countries = json.Countries.slice();
     this.table = forView.createTable(global);

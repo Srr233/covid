@@ -7,6 +7,10 @@ class Model {
     this.summary = fetch('https://api.covid19api.com/summary');
     this.currentCountry = {};
     this.allInfo = null;
+    this.status = {
+      oneDay: 'NewDeaths',
+      total: 'TotalDeaths'
+    };
   }
 
   async setAllData() {
@@ -19,19 +23,19 @@ class Model {
     }
   }
 
-  async setCurrentCountry(countryCode) {
-    this.currentCountryCode = countryCode;
-    const currentCountry = this.allInfo.find(item => item.CountryCode === countryCode);
+  setCurrentCountry(code) {
+    const currentCountry = this.allInfo.Countries.find(item => item.CountryCode === code);
 
     if (currentCountry) {
-      this.currentCountry = currentCountry;
+      this.view.selectOne(currentCountry, this.status, code);
     } else {
       throw new Error('Country not found!');
     }
   }
 
   changeList(options) {
-    this.view.changeList(options, this.allInfo);
+    const status = this.view.changeList(options, this.allInfo);
+    this.status = status;
   }
 
   async init() {

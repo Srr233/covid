@@ -1,23 +1,22 @@
 function getCurrentNameInfo(status, time) {
-  let res = '';
-  if (time === 'total') {
-    if (status === 'recovered') {
-      res = 'TotalRecovered';
-    } else if (status === 'confirmed') {
-      res = 'TotalConfirmed';
-    } else if (status === 'deaths') {
-      res = 'TotalDeaths';
-    }
-  } else if (time === 'one-day') {
-    if (status === 'recovered') {
-      res = 'NewRecovered';
-    } else if (status === 'confirmed') {
-      res = 'NewConfirmed';
-    } else if (status === 'deaths') {
-      res = 'NewDeaths';
-    }
-  }
-  return res;
+  const name = status + time;
+  const date1 = {
+    recoveredtotal: 'TotalRecovered',
+    confirmedtotal: 'TotalConfirmed',
+    deathstotal: 'TotalDeaths',
+    'recoveredone-day': 'NewRecovered',
+    'confirmedone-day': 'NewConfirmed',
+    'deathsone-day': 'NewDeaths'
+  };
+  const date2 = {
+    TotalRecovered: 'recovered',
+    TotalConfirmed: 'confirmed',
+    TotalDeaths: 'deaths',
+    NewRecovered: 'recovered',
+    NewConfirmed: 'confirmed',
+    NewDeaths: 'deaths'
+  };
+  return date1[name] || date2[name];
 }
 
 const forModel = {
@@ -97,9 +96,9 @@ const forView = {
     const wrapper = document.createElement('p');
     wrapper.setAttribute('data-code', code);
     const allInfoHTML = `
-    <span class="ST__${type}-list-number">${number}</span>
-    <span class="ST__${type}-list-status">${status}</span>
-    <span class="ST__${type}-list-country">${country}</span>`;
+    <span class="ST__${type}-list-number pointerOff">${number}</span>
+    <span class="ST__${type}-list-status pointerOff">${status}</span>
+    <span class="ST__${type}-list-country pointerOff">${country}</span>`;
     wrapper.insertAdjacentHTML('beforeend', allInfoHTML);
     return wrapper;
   },
