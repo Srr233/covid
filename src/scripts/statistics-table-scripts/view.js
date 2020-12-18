@@ -48,6 +48,11 @@ class View {
     return allStatus;
   }
 
+  updateTable(json) {
+    forView.clearChildren(this.table.parentElement);
+    this.init(json);
+  }
+
   selectOne(currentCountry, status, code) {
     const optionsLast = {
       country: currentCountry.Country,
