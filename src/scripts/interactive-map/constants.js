@@ -5,14 +5,24 @@ const attribution = 'Map data &copy; <a href="https://www.openstreetmap.org/copy
 const mapContainerName = 'interactive-map';
 const templateTileLayer = 'mapbox/light-v10';
 
+const gradesCases = [
+  { color: '#fff5f0', cases: 0 },
+  { color: '#fee0d2', cases: 5000 },
+  { color: '#fcbba1', cases: 10000 },
+  { color: '#fc9272', cases: 20000 },
+  { color: '#fb6a4a', cases: 50000 },
+  { color: '#ef3b2c', cases: 100000 },
+  { color: '#cb181d', cases: 200000 },
+  { color: '#a50f15', cases: 500000 },
+  { color: '#67000d', cases: 1000000 }
+];
 const mapOptions = {
-  center: [17.385044, 78.486671],
-  zoom: 2.5,
-  minZoom: 2.5
+  zoomSnap: 0.25,
+  minZoom: 1
 };
 const tileLayerOptions = {
   attribution: attribution,
-  maxZoom: 18,
+  maxZoom: 12,
   id: templateTileLayer,
   tileSize: 512,
   zoomOffset: -1,
@@ -24,5 +34,6 @@ export {
   urlTemplate,
   mapOptions,
   tileLayerOptions,
-  mapContainerName
+  mapContainerName,
+  gradesCases
 };
