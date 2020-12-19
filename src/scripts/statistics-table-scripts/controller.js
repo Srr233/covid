@@ -15,13 +15,22 @@ class Controller {
 
   changeType(event) {
     const target = event.target;
-    let status = target.parentElement.querySelector('span').textContent;
-    status = status.split(' ')[1];
-    const type = target.dataset.type.split(' ');
+    let direction = target.dataset.type;
+    if (!direction) return;
+    const currentStatus = target.parentElement.querySelector('span').textContent;
+    let status = currentStatus;
+    status = status.split(' ');
+    let isOne = false;
+    if (status.length > 2) {
+      isOne = true;
+      status = [status[0], status.slice(-1).join('')];
+    }
     const options = {
-      time: type[0],
-      direction: type[1],
-      status
+      type: status[0],
+      direction: direction,
+      status: status[1],
+      allStatus: currentStatus,
+      isOneHundred: isOne
     };
     this.model.changeList(options);
   }

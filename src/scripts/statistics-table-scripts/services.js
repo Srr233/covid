@@ -1,22 +1,14 @@
-function getCurrentNameInfo(status, time) {
-  const name = status + time;
-  const date1 = {
-    recoveredtotal: 'TotalRecovered',
-    confirmedtotal: 'TotalConfirmed',
-    deathstotal: 'TotalDeaths',
-    'recoveredone-day': 'NewRecovered',
-    'confirmedone-day': 'NewConfirmed',
-    'deathsone-day': 'NewDeaths'
+function getCurrentNameInfo(status, type) {
+  const name = status + type;
+  const date = {
+    recoveredtotal: 'recovered',
+    casestotal: 'cases',
+    deathstotal: 'deaths',
+    recoveredlast: 'todayRecovered',
+    caseslast: 'todayCases',
+    deathslast: 'todayDeaths'
   };
-  const date2 = {
-    TotalRecovered: 'recovered',
-    TotalConfirmed: 'confirmed',
-    TotalDeaths: 'deaths',
-    NewRecovered: 'recovered',
-    NewConfirmed: 'confirmed',
-    NewDeaths: 'deaths'
-  };
-  return date1[name] || date2[name];
+  return date[name];
 }
 
 const forModel = {
@@ -24,6 +16,74 @@ const forModel = {
     const response = await promise;
     const json = await response.json();
     return json;
+  },
+  getAllCases(arr) {
+    const copyArg = arr.slice();
+    const res = {
+      total: {
+        cases: 0,
+        recovered: 0,
+        deaths: 0,
+        'total on 100k deaths': 0,
+        'total on 100k recovered': 0,
+        'total on 100k cases': 0
+      },
+      last: {
+        cases: 0,
+        recovered: 0,
+        deaths: 0,
+        'last on 100k cases': 0,
+        'last on 100k deaths': 0,
+        'last on 100k recovered': 0
+      }
+    };
+
+    for (let i = 0; i < copyArg.length; i += 1) {
+      res.total.cases += copyArg[i].cases;
+      res.total.recovered += copyArg[i].recovered;
+      res.total.deaths += copyArg[i].deaths;
+      if (copyArg[i].population !== 0) {
+        res.total['total on 100k cases'] += Math.floor(copyArg[i].cases / (copyArg[i].population / 100000));
+        res.total['total on 100k deaths'] += Math.floor(copyArg[i].deaths / (copyArg[i].population / 100000));
+        res.total['total on 100k recovered'] += Math.floor(copyArg[i].recovered / (copyArg[i].population / 100000));
+
+        res.last.cases += copyArg[i].todayCases;
+        res.last.recovered += copyArg[i].todayRecovered;
+        res.last.deaths += copyArg[i].todayDeaths;
+        res.last['last on 100k cases'] += Math.floor(copyArg[i].todayCases / (copyArg[i].population / 100000));
+        res.last['last on 100k deaths'] += Math.floor(copyArg[i].todayDeaths / (copyArg[i].population / 100000));
+        res.last['last on 100k recovered'] += Math.floor(copyArg[i].todayRecovered / (copyArg[i].population / 100000));
+      }
+    }
+
+    return res;
+  },
+  getNextTypeStatistics(status, direction) {
+    const statuses = [
+      'total deaths', 'total recovered', 'total cases',
+      'total on 100k deaths', 'total on 100k recovered',
+      'total on 100k cases', 'last deaths',
+      'last recovered', 'last cases',
+      'last on 100k cases', 'last on 100k deaths',
+      'last on 100k recovered'
+    ];
+    const indexStatus = statuses.indexOf(status);
+    let res = '';
+
+    if (indexStatus === -1) {
+      throw new Error('Not correct status!');
+    }
+
+    if (direction === 'right' && indexStatus < 11) {
+      res = statuses[indexStatus + 1];
+    } else if (direction === 'left' && indexStatus > 0) {
+      res = statuses[indexStatus - 1];
+    } else if (direction === 'right') {
+      res = statuses[0];
+    } else if (direction === 'left') {
+      res = statuses[11];
+    }
+    return res;
   }
 };
 
@@ -40,47 +100,23 @@ const forView = {
   createTable(info) {
     const wrapper = document.createElement('div');
     wrapper.classList.add('ST');
-    const allTableHTML = `<div class="ST__total-wrapper">
-      <div class="ST__total">
-        <div class="ST__total-name-wrapper">
-          <span class="ST__total-name">Global deaths</span>
-          <span class="ST__total-number">${info.TotalDeaths.toLocaleString()}</span>
+    const allTableHTML = `<div class="ST__info-wrapper">
+      <div class="ST__info">
+        <div class="ST__info-name-wrapper">
+          <span class="ST__info-name">Total cases</span>
+          <span class="ST__info-number">${info.toLocaleString()}</span>
         </div>
-        <div class="ST__total-list">
+        <div class="ST__info-list">
         </div>
       </div>
-      <div class="ST__total-buttons">
-        <button class="ST__total-buttons__left" data-type="total left"><svg xmlns:xlink="http://www.w3.org/1999/xlink"
+      <div class="ST__info-buttons">
+        <button class="ST__info-buttons__left" data-type="left"><svg xmlns:xlink="http://www.w3.org/1999/xlink"
             xmlns="http://www.w3.org/2000/svg" height="16px" width="16px" viewBox="0 0 16 16">
             <path d="M11 15.5l-7-7 7-7zM10 3.914L5.414 8.5 10 13.086z"></path>
           </svg>
         </button>
-        <span class="ST__total-current-status">total deaths</span>
-        <button class="ST__total-buttons__right" data-type="total right"><svg xmlns:xlink="http://www.w3.org/1999/xlink"
-            xmlns="http://www.w3.org/2000/svg" height="16px" width="16px" viewBox="0 0 16 16">
-            <path d="M5 1.5l7 7-7 7zm1 11.586L10.586 8.5 6 3.914z"></path>
-          </svg>
-        </button>
-      </div>
-    </div>
-    <div class="ST__one-day-wrapper">
-      <div class="ST__one-day">
-        <div class="ST__one-day-name-wrapper">
-          <span class="ST__one-day-name">Last deaths</span>
-          <span class="ST__one-day-number">${info.NewDeaths.toLocaleString()}</span>
-        </div>
-        <div class="ST__one-day-list">
-         
-        </div>
-      </div>
-      <div class="ST__one-day-buttons">
-        <button class="ST__one-day-buttons__left" data-type="oneDay left"><svg xmlns:xlink="http://www.w3.org/1999/xlink"
-            xmlns="http://www.w3.org/2000/svg" height="16px" width="16px" viewBox="0 0 16 16">
-            <path d="M11 15.5l-7-7 7-7zM10 3.914L5.414 8.5 10 13.086z"></path>
-          </svg>
-        </button>
-        <span class="ST__one-day-current-status">last deaths</span>
-        <button class="ST__one-day-buttons__right" data-type="oneDay right"><svg xmlns:xlink="http://www.w3.org/1999/xlink"
+        <span class="ST__info-current-status">total cases</span>
+        <button class="ST__info-buttons__right" data-type="right"><svg xmlns:xlink="http://www.w3.org/1999/xlink"
             xmlns="http://www.w3.org/2000/svg" height="16px" width="16px" viewBox="0 0 16 16">
             <path d="M5 1.5l7 7-7 7zm1 11.586L10.586 8.5 6 3.914z"></path>
           </svg>
@@ -91,14 +127,14 @@ const forView = {
     return wrapper;
   },
   createParagraph({
-    country, number, status, type, code
+    country, number, status, code
   }) {
     const wrapper = document.createElement('p');
     wrapper.setAttribute('data-code', code);
     const allInfoHTML = `
-    <span class="ST__${type}-list-number pointerOff">${number}</span>
-    <span class="ST__${type}-list-status pointerOff">${status}</span>
-    <span class="ST__${type}-list-country pointerOff">${country}</span>`;
+    <span class="ST__info-list-number pointerOff">${number}</span>
+    <span class="ST__info-list-status pointerOff">${status}</span>
+    <span class="ST__info-list-country pointerOff">${country}</span>`;
     wrapper.insertAdjacentHTML('beforeend', allInfoHTML);
     return wrapper;
   },
@@ -107,9 +143,13 @@ const forView = {
     groups.sort((a, b) => {
       const elem1 = a.firstElementChild;
       const elem2 = b.firstElementChild;
-      const n1 = elem1.textContent.split(/\s/).join('');
-      const n2 = elem2.textContent.split(/\s/).join('');
-      return n2 - n1;
+      const text1 = elem1.textContent;
+      const text2 = elem2.textContent;
+      let n1 = text1.includes(',') ? text1.split(',').join('.')
+        : text1.split(/\s/).join('');
+      let n2 = text2.includes(',') ? text2.split(',').join('.')
+        : text2.split(/\s/).join('');
+      return +n2 - +n1;
     });
     return groups;
   },
@@ -136,19 +176,27 @@ const forView = {
     return res;
   },
   getCurrentNameInfo,
-  createList(countries, nextStatus, time) {
+  createList(countries, status, type, isOnehundred) {
+    const currentStatus = getCurrentNameInfo(status, type);
     const resArr = [];
-    const normalNameStatus = getCurrentNameInfo(nextStatus, time);
     for (let i = 0; i < countries.length; i += 1) {
       const currentCountry = countries[i];
-      const lastInfo = {
-        country: currentCountry.Country,
-        number: currentCountry[normalNameStatus].toLocaleString(),
-        status: nextStatus,
-        type: time,
-        code: currentCountry.CountryCode
-      };
-      resArr.push(lastInfo);
+      if (currentCountry.countryInfo.iso2) {
+        let number = 0;
+        if (isOnehundred) {
+          number = Math.floor(currentCountry[currentStatus] / (currentCountry.population / 100000));
+        } else {
+          number = Math.floor(currentCountry[currentStatus]);
+        }
+        const info = {
+          country: currentCountry.country,
+          number: number.toLocaleString(),
+          status: status,
+          type: type,
+          code: currentCountry.countryInfo.iso2
+        };
+        resArr.push(info);
+      }
     }
     return resArr;
   }

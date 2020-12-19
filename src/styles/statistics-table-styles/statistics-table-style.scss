@@ -58,103 +58,54 @@ $primary-color-3: #2c2c2c;
         border-color: transparent;
         color: transparent;
     }
-        &__total-wrapper {
+        &__info-wrapper {
             width: 50%;
             @extend %padding-blocks;
             @extend %colors;
         }
-		&__total {
+		&__info {
             height: 100%;
             @extend %scrollBar;
         }
 
-		&__total-name-wrapper {
+		&__info-name-wrapper {
             background-color: $primary-color-3;
             width: 100%;
             top: 0;
             @extend %list-name-wrap;
         }
 
-		&__total-name {
+		&__info-name {
             color: $primary-color-1;
         }
 
-		&__total-number {
+		&__info-number {
             color: $primary-color-1;
         }
 
-		&__total-list {
+		&__info-list {
             @extend %list;
         }
-        &__total-list-country {
+        &__info-list-country {
             color: $primary-color-1;
         }
-        &__total-list-number {
+        &__info-list-number {
             color: $primary-color-2;
         }
-        &__total-list-status {
-            color: $primary-color-2;
-        }
-
-        &__one-day-wrapper {
-            width: 50%;
-            @extend %padding-blocks;
-            @extend %colors;
-        }
-		&__one-day {
-            height: 100%;
-            @extend %scrollBar;
-        }
-
-		&__one-day-name-wrapper {
-            background-color: $primary-color-3;
-            width: 100%;
-            top: 0;
-            @extend %list-name-wrap;
-        }
-
-		&__one-day-name {
-            color: $primary-color-1;
-        }
-
-        &__one-day-number {
-            color: $primary-color-1;
-        }
-        
-        &__one-day-list {
-            @extend %list;
-        }
-        &__one-day-list-country {
-            color: $primary-color-1;
-        }
-        &__one-day-list-number {
-            color: $primary-color-2;
-        }
-        &__one-day-list-status {
+        &__info-list-status {
             color: $primary-color-2;
         }
 
-
-
-        &__total-buttons {
+        &__info-buttons {
             @extend %buttons-wrap;
-            &__total-buttons__left {
+            &__info-buttons__left {
             }
 
-            &__total-buttons__right {
+            &__info-buttons__right {
             }
         }
 
-        &__one-day-buttons {
-            @extend %buttons-wrap;
-            &__one-day-buttons__left {
-            }
-            &__one-day-buttons__right {
-            }
-        }
-        &__total-current-status {
-        }
-        &__one-day-current-status {
+        &__info-current-status {
         }
 }
 
