@@ -1,11 +1,43 @@
-$background: rgb(40, 40, 40);
+// $fa-font-path: "../webfonts";
+// @import "./scss/fontawesome.scss";
+// @import "./scss/solid.scss";
+// @import "./scss/brands.scss";
+$background:  rgb(247, 247, 247);
 $chart-color: rgb(255, 170, 0);
 .title {
   color: red;
 }
 .graph {
   background-color: $background;
+  position: relative;
+  user-select: none;
+}
+.chart {
+  display: none;
+  // visibility: hidden;
+}
+.chart.active {
+  display: block;
 }
 .graph-navigation {
-  color: rgba($color: #fff, $alpha: 0.8);
+  color: rgba($color: #343a40, $alpha: 1);
+  display: flex;
+  justify-content: space-between;
+}
+.nav-item {
+  display: none;
+}
+.nav-item:hover {
+  cursor: pointer;
+}
+.nav-item.active {
+  display: block;
+}
+.arrow {
+  // background-color: rgba($color: #00ffff, $alpha: .4);
+  height: 166px;
+  width: 166px;
+}
+.arrow:hover {
+  cursor: pointer;
 }
