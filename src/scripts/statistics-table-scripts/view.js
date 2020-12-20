@@ -10,7 +10,6 @@ class View {
     const {
       type, status, allStatus, allCases, countries
     } = options;
-
     this.table.querySelector('.ST__info-current-status').textContent = allStatus;
     this.table.querySelector('.ST__info-name').textContent = allStatus;
     this.table.querySelector('.ST__info-current-status').textContent = allStatus;
@@ -31,6 +30,24 @@ class View {
     const forInfo = forView.sort(this.listInfo.children);
     forView.clearChildren(this.listInfo);
     forView.addAllChildren(this.listInfo, forInfo);
+  }
+
+  changeOneCountry(options) {
+    this.table.querySelector('.ST__info-current-status').textContent = options.allStatus;
+    this.table.querySelector('.ST__info-name').textContent = options.allStatus;
+    this.table.querySelector('.ST__info-current-status').textContent = options.allStatus;
+    this.table.querySelector('.ST__info-name').textContent = options.allStatus;
+    const newList = forView.createList([options.currentCountry],
+      options.status, options.type, options.isOneHundred);
+
+    forView.clearChildren(this.listInfo);
+
+    newList.forEach(item => {
+      const forLast = forView.createParagraph(item);
+      debugger;
+      this.table.querySelector('.ST__info-number').textContent = item.number;
+      this.listInfo.insertAdjacentElement('beforeend', forLast);
+    });
   }
 
   updateTable(json) {

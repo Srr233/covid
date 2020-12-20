@@ -9,8 +9,8 @@ class Controller {
     this.model.setCurrentCountry(code);
   }
 
-  setGlobal() {
-    this.model.setAllData();
+  setGlobal(info) {
+    this.model.setAllData(info);
   }
 
   changeType(event) {
@@ -32,7 +32,13 @@ class Controller {
       allStatus: currentStatus,
       isOneHundred: isOne
     };
-    this.model.changeList(options);
+    const list = document.querySelector('.ST__info-list');
+
+    if (list.childElementCount === 1) {
+      this.model.changeInfoForOneCountry(options);
+    } else {
+      this.model.changeList(options);
+    }
   }
 
   init() {

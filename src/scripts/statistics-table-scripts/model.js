@@ -37,10 +37,30 @@ class Model {
     };
 
     if (currentCountry) {
+      this.currentCountry = currentCountry;
       this.view.selectOne(info, isOneHundred);
     } else {
       throw new Error('Country not found!');
     }
+  }
+
+  changeInfoForOneCountry(options) {
+    const copy = options;
+    copy.allStatus = forModel.getNextTypeStatistics(copy.allStatus, options.direction);
+    this.allStatus = copy.allStatus;
+    this.status = copy.allStatus;
+
+    const type = this.status.split(/\s/)[0];
+    const status = this.status.split(/\s/).slice(-1).join('');
+    copy.type = type;
+    copy.status = status;
+    if (this.status.includes('100k')) {
+      copy.isOneHundred = true;
+    } else {
+      copy.isOneHundred = false;
+    }
+    copy.currentCountry = this.currentCountry;
+    this.view.changeOneCountry(copy);
   }
 
   changeList(options) {
@@ -61,6 +81,7 @@ class Model {
       countries: this.allInfo,
       allCases: this.allCases
     };
+    this.status = copy.allStatus;
     this.view.changeList(allInfo, copy.isOneHundred);
   }
 
