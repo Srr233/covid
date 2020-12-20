@@ -103,7 +103,7 @@ const forView = {
     const allTableHTML = `<div class="ST__info-wrapper">
       <div class="ST__info">
         <div class="ST__info-name-wrapper">
-          <span class="ST__info-name">Total cases</span>
+          <span class="ST__info-name">total cases</span>
           <span class="ST__info-number">${info.toLocaleString()}</span>
         </div>
         <div class="ST__info-list">

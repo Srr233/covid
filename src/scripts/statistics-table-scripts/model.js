@@ -10,18 +10,25 @@ class Model {
     this.status = 'total cases';
   }
 
-  async setAllData() {
-    if (this.allInfo) {
-      this.view.updateTable(this.allInfo);
-    } else {
-      const json = await forModel.getAllData(this.summary);
-      this.allInfo = json;
-      this.view.updateTable(json);
+  async setAllData(info) {
+    let options;
+    if (info) {
+      const temporary = info.split(/\s/);
+      options = {
+        allStatus: info,
+        type: temporary[0],
+        status: temporary.slice(-1),
+        countries: this.allInfo,
+        allCases: this.allCases,
+        isOneHundred: info.includes('100k')
+      };
     }
+    this.view.updateTable(this.allInfo, options);
   }
 
-  setCurrentCountry(code) {
+  setCurrentCountry(information, code) {
     const currentCountry = this.allInfo.find(item => item.countryInfo.iso2 === code);
+
     let isOneHundred;
     const type = this.status.split(/\s/)[0];
     const status = this.status.split(/\s/).slice(-1).join('');

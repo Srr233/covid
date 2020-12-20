@@ -44,15 +44,18 @@ class View {
 
     newList.forEach(item => {
       const forLast = forView.createParagraph(item);
-      debugger;
       this.table.querySelector('.ST__info-number').textContent = item.number;
       this.listInfo.insertAdjacentElement('beforeend', forLast);
     });
   }
 
-  updateTable(json) {
-    forView.clearChildren(this.table.parentElement);
-    this.init(json);
+  updateTable(json, info) {
+    if (info) {
+      this.changeList(info, info.isOneHundred);
+    } else {
+      forView.clearChildren(this.table.parentElement);
+      this.init(json);
+    }
   }
 
   selectOne(info, isOneHundred) {

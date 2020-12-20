@@ -23,17 +23,17 @@
 }
 
 .ST__info-wrapper, .ST__info-buttons {
-  background-color: #2c2c2c;
+  background-color: #f8f9fa;
 }
 
 .ST__info-buttons {
   display: flex;
   justify-content: space-between;
   border-radius: 0 0 10px 10px;
-  color: #bdbdbd;
+  color: #f8f9fa;
 }
 .ST__info-buttons svg {
-  background-color: #fff;
+  background-color: #212529;
   border-radius: 50%;
   pointer-events: none;
 }
@@ -49,7 +49,7 @@
 }
 .ST p {
   margin: 0.5em 0;
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid #212529;
 }
 .ST button {
   background-color: transparent;
@@ -63,25 +63,29 @@
   height: 100%;
 }
 .ST__info-name-wrapper {
-  background-color: #2c2c2c;
+  background-color: #f8f9fa;
   width: 100%;
   top: 0;
 }
 .ST__info-name {
-  color: #fff;
+  color: #212529;
 }
 .ST__info-number {
-  color: #fff;
+  color: #212529;
 }
 .ST__info-list-country {
-  color: #fff;
+  color: #212529;
 }
 .ST__info-list-number {
-  color: #bdbdbd;
+  color: #6c757d;
 }
 .ST__info-list-status {
-  color: #bdbdbd;
+  color: #6c757d;
 }
+.ST__info-current-status {
+  color: #212529;
+}
+
 .pointerOff {
   pointer-events: none;
 }

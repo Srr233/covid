@@ -5,12 +5,20 @@ class Controller {
     this.model = new Model();
   }
 
-  setCountry(code) {
-    this.model.setCurrentCountry(code);
+  setCountry(type, period, magnitude, code) {
+    const normalPeriod = period === 'today' ? 'last' : period;
+    const normalMagnitude = magnitude === 'absolute' ? '' : 'on 100k ';
+    const result = `${normalPeriod} ${normalMagnitude}${type}`;
+
+    this.model.setCurrentCountry(result, code);
   }
 
-  setGlobal(info) {
-    this.model.setAllData(info);
+  setGlobal(type, period, magnitude) {
+    const normalPeriod = period === 'today' ? 'last' : period;
+    const normalMagnitude = magnitude === 'absolute' ? '' : 'on 100k ';
+    const result = `${normalPeriod} ${normalMagnitude}${type}`;
+
+    this.model.setAllData(result);
   }
 
   changeType(event) {
