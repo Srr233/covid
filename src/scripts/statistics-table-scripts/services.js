@@ -1,5 +1,5 @@
-import left from '../../assets/arrows/left-arrow.svg';
-import right from '../../assets/arrows/right-arrow.svg';
+import left from '../../assets/left-arrow.svg';
+import right from '../../assets/right-arrow.svg';
 
 function getCurrentNameInfo(status, type) {
   const name = status + type;
