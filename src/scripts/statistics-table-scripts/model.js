@@ -30,6 +30,7 @@ class Model {
     const currentCountry = this.allInfo.find(item => item.countryInfo.iso2 === code);
 
     let isOneHundred;
+    this.status = information;
     const type = this.status.split(/\s/)[0];
     const status = this.status.split(/\s/).slice(-1).join('');
     if (this.status.includes('100k')) {

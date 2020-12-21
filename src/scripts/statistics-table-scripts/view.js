@@ -30,6 +30,12 @@ class View {
     const forInfo = forView.sort(this.listInfo.children);
     forView.clearChildren(this.listInfo);
     forView.addAllChildren(this.listInfo, forInfo);
+
+    forView.changeDataAttr(this.wrapperButtons, {
+      type: status.join(''),
+      period: type === 'last' ? 'today' : 'total',
+      magnitude: isOneHundred ? 'per 100 thousand' : 'absolute'
+    });
   }
 
   changeOneCountry(options) {
@@ -47,6 +53,11 @@ class View {
       this.table.querySelector('.ST__info-number').textContent = item.number;
       this.listInfo.insertAdjacentElement('beforeend', forLast);
     });
+    forView.changeDataAttr(this.wrapperButtons, {
+      type: Array.isArray(options.status) ? options.status.join('') : options.status,
+      period: options.type === 'last' ? 'today' : 'total',
+      magnitude: options.isOneHundred ? 'per 100 thousand' : 'absolute'
+    });
   }
 
   updateTable(json, info) {
@@ -58,14 +69,21 @@ class View {
     }
   }
 
-  selectOne(info, isOneHundred) {
-    const newList = forView.createList([info.country], info.status, info.type, isOneHundred);
+  selectOne(options, isOneHundred) {
+    const newList = forView.createList([options.country], options.status, options.type,
+      isOneHundred);
     forView.clearChildren(this.listInfo);
 
     newList.forEach(item => {
       const forInfo = forView.createParagraph(item);
       this.listInfo.insertAdjacentElement('beforeend', forInfo);
       this.table.querySelector('.ST__info-number').textContent = item.number;
+    });
+
+    forView.changeDataAttr(this.wrapperButtons, {
+      type: options.status,
+      period: options.type === 'last' ? 'today' : 'total',
+      magnitude: isOneHundred ? 'per 100 thousand' : 'absolute'
     });
   }
 
@@ -76,7 +94,7 @@ class View {
     this.table = forView.createTable(globalInfo);
     this.wrapperTable.insertAdjacentElement('beforeend', this.table);
     this.listInfo = document.querySelector('.ST__info-list');
-
+    this.wrapperButtons = document.querySelector('.ST__info-buttons');
     const newList = forView.createList(arrCountries, key, 'total');
 
     newList.forEach(item => {
@@ -87,6 +105,11 @@ class View {
 
     forView.clearChildren(this.listInfo);
     forView.addAllChildren(this.listInfo, list);
+    forView.changeDataAttr(this.wrapperButtons, {
+      type: 'cases',
+      period: 'total',
+      magnitude: 'absolute'
+    });
   }
 }
 

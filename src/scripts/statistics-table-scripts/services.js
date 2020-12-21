@@ -199,6 +199,16 @@ const forView = {
       }
     }
     return resArr;
+  },
+  changeDataAttr(element, properties) {
+    if (!(properties instanceof Object)) {
+      throw new Error('Properties is not object!');
+    }
+    const copyReference = element;
+    const entries = Object.entries(properties);
+    for (let i = 0; i < entries.length; i += 1) {
+      copyReference.dataset[entries[i][0]] = entries[i][1];
+    }
   }
 };
 
