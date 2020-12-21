@@ -45,10 +45,10 @@ export default function createChart(canvasNode, dataArray, dateArray, color) {
       },
       tooltips: {
         callbacks: {
-          title: function(tooltipItem, chart) {
+          title: function title(tooltipItem, chart) {
             return dateArray[tooltipItem[0].index].split('T')[0];
           },
-          label: function(tooltipItem) {
+          label: function label(tooltipItem) {
             return Number.parseFloat(tooltipItem.value) / 1000 + 'k';
           }
         },

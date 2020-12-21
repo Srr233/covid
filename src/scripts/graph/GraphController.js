@@ -4,6 +4,7 @@ import handleNavArrows from './handleNavArrows';
 export default class GraphController {
   constructor() {
     this.apiUrlWorld = 'https://api.covid19api.com/total/country/united-states';
+    // this.apiUrlWorld = 'https://disease.sh/v3/covid-19/historical/US';
     this.apiUrlCountries = 'https://api.covid19api.com/total/country/';
     this.apiUrl = 'https://api.covid19api.com/countries';
     this.apiPopulation = 'https://disease.sh/v3/covid-19/countries';
@@ -32,14 +33,11 @@ export default class GraphController {
   buildCharts(countryCode) {
     if (countryCode) {
       fetch(this.apiUrl)
-      // fetch(this.api)
         .then((response) => {
           return response.json();
         })
         .then((data) => {
-          // console.log(data)
           this.cnt = data.find((elem) => elem.ISO2 === countryCode);
-          // console.log(this.cnt)
           this.buildChartsFor(this.apiUrlCountries + this.cnt.Slug, countryCode);
         });
     } else {
@@ -65,6 +63,9 @@ export default class GraphController {
       })
       .then((data) => {
         this.graphComponent.showData(data);
+        this.graphComponent.showDataPer100K(data);
+        // this.graphComponent.showData(data.timeline);
+        // this.graphComponent.showDataPer100K(data.timeline);
       });
   }
 
@@ -82,7 +83,6 @@ export default class GraphController {
   handleEvent(target) {
     const activeNavItemIndex = this.navItemsArray.findIndex((elem) => elem.className.includes('active'));
     if (target.className.includes('nav-item')) {
-      // console.log('ttt');
       // this.switchChart('deaths', 'per 100 thousand');
     }
 

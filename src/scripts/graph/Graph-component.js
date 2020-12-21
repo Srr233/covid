@@ -1,5 +1,7 @@
 import createDOMElement from './createDOMElement.js';
 import createChart from './createChart.js';
+import leftArrow from '../../assets/left-arrow.svg';
+import rightArrow from '../../assets/right-arrow.svg';
 
 export default class GraphComponent {
   constructor() {
@@ -38,20 +40,20 @@ export default class GraphComponent {
     const DeathsPer100K = createDOMElement('div', 'nav-item deaths-per100K-nav', 'Daily Deaths per 100k');
     const RecoveredPer100K = createDOMElement('div', 'nav-item recovered-per100K-nav', 'Daily Recovered per 100k');
 
-    const leftArrowImg = createDOMElement('img', 'arrow', '', '', ['src', '../src/assets/left-arrow.svg']);
-    const rightArrowImg = createDOMElement('img', 'arrow', '', '', ['src', '../src/assets/right-arrow.svg']);
-    const leftArrow = createDOMElement('div', 'left-arrow', leftArrowImg);
-    const rightArrow = createDOMElement('div', 'right-arrow', rightArrowImg);
+    const leftArrowImg = createDOMElement('img', 'arrow left', '', '', ['src', leftArrow]);
+    const rightArrowImg = createDOMElement('img', 'arrow right', '', '', ['src', rightArrow]);
+    const leftArrowDiv = createDOMElement('div', 'left-arrow', leftArrowImg);
+    const rightArrowDiv = createDOMElement('div', 'right-arrow', rightArrowImg);
 
     this.navigation.append(
-      leftArrow,
+      leftArrowDiv,
       Cases,
       Deaths,
       Recovered,
       CasesPer100K,
       DeathsPer100K,
       RecoveredPer100K,
-      rightArrow
+      rightArrowDiv
     );
   }
 
@@ -63,6 +65,11 @@ export default class GraphComponent {
     const recoveredArray = covidData.map((element) => element.Recovered);
     const dateArray = covidData.map((element) => element.Date);
 
+    // const confirmedArray = Object.values(covidData.cases);
+    // const deathsArray = Object.values(covidData.deaths);
+    // const recoveredArray = Object.values(covidData.recovered);
+    // const dateArray = Object.keys(covidData.cases);
+
     const yellow = 'rgb(255, 170, 0)';
     const black = 'rgb(34, 34, 34)';
     const green = 'rgb(28, 145, 17)';
@@ -73,14 +80,35 @@ export default class GraphComponent {
   }
 
   showDataPer100K(covidData, population) {
+    const WORLD_POPULATION = 7833601000;
     const confirmedArray = covidData.map((element) => element.Confirmed);
     const deathsArray = covidData.map((element) => element.Deaths);
     const recoveredArray = covidData.map((element) => element.Recovered);
     const dateArray = covidData.map((element) => element.Date);
 
-    const confirmedPer100KArray = confirmedArray.map((el) => el / (population / 100000));
-    const deathsPer100KArray = deathsArray.map((el) => el / (population / 100000));
-    const recoveredPer100KArray = recoveredArray.map((el) => el / (population / 100000));
+    // const confirmedArray = Object.values(covidData.cases);
+    // const deathsArray = Object.values(covidData.deaths);
+    // const recoveredArray = Object.values(covidData.recovered);
+    // const dateArray = Object.keys(covidData.cases);
+
+    const confirmedPer100KArray = confirmedArray.map((el) => {
+      if (population) {
+        return el / (population / 100000);
+      }
+      return el / (WORLD_POPULATION / 100000);
+    });
+    const deathsPer100KArray = deathsArray.map((el) => {
+      if (population) {
+        return el / (population / 100000);
+      }
+      return el / (WORLD_POPULATION / 100000);
+    });
+    const recoveredPer100KArray = recoveredArray.map((el) => {
+      if (population) {
+        return el / (population / 100000);
+      }
+      return el / (WORLD_POPULATION / 100000);
+    });
 
     const purple = 'rgb(150, 45, 170)';
     const blue = 'rgb(20, 1, 99)';
