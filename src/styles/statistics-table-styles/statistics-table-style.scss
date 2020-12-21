@@ -57,6 +57,7 @@ $light:#f8f9fa;
         background-color: transparent;
         border-color: transparent;
         color: transparent;
+        outline: none;
     }
         &__info-wrapper {
             width: 50%;
@@ -99,13 +100,22 @@ $light:#f8f9fa;
         &__info-buttons {
             @extend %buttons-wrap;
             &__info-buttons__left {
+
             }
 
             &__info-buttons__right {
             }
         }
-
+        &__info-buttons-img-wrapper {
+            width: 1em;
+        }
+        &__info-buttons-img {
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+        }
         &__info-current-status {
+            text-align: center;
             color: $dark;
         }
 }

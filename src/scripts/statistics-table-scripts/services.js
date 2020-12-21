@@ -1,3 +1,6 @@
+import left from '../../assets/arrows/left-arrow.svg';
+import right from '../../assets/arrows/right-arrow.svg';
+
 function getCurrentNameInfo(status, type) {
   const name = status + type;
   const date = {
@@ -110,16 +113,16 @@ const forView = {
         </div>
       </div>
       <div class="ST__info-buttons">
-        <button class="ST__info-buttons__left" data-type="left"><svg xmlns:xlink="http://www.w3.org/1999/xlink"
-            xmlns="http://www.w3.org/2000/svg" height="16px" width="16px" viewBox="0 0 16 16">
-            <path d="M11 15.5l-7-7 7-7zM10 3.914L5.414 8.5 10 13.086z"></path>
-          </svg>
+        <button class="ST__info-buttons__left" data-type="left">
+          <div class="ST__info-buttons-img-wrapper pointerOff">
+            <img class ="ST__info-buttons-img" src="${left}" alt="left arrow">
+          </div>
         </button>
         <span class="ST__info-current-status">total cases</span>
-        <button class="ST__info-buttons__right" data-type="right"><svg xmlns:xlink="http://www.w3.org/1999/xlink"
-            xmlns="http://www.w3.org/2000/svg" height="16px" width="16px" viewBox="0 0 16 16">
-            <path d="M5 1.5l7 7-7 7zm1 11.586L10.586 8.5 6 3.914z"></path>
-          </svg>
+        <button class="ST__info-buttons__right" data-type="right">
+        <div class="ST__info-buttons-img-wrapper pointerOff">
+            <img class ="ST__info-buttons-img" src="${right}" alt="left arrow">
+          </div>
         </button>
       </div>
     </div>`;

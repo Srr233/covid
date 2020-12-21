@@ -32,7 +32,7 @@ class View {
     forView.addAllChildren(this.listInfo, forInfo);
 
     forView.changeDataAttr(this.wrapperButtons, {
-      type: status.join(''),
+      type: Array.isArray(status) ? status.join('') : status,
       period: type === 'last' ? 'today' : 'total',
       magnitude: isOneHundred ? 'per 100 thousand' : 'absolute'
     });
@@ -81,7 +81,7 @@ class View {
     });
 
     forView.changeDataAttr(this.wrapperButtons, {
-      type: options.status,
+      type: Array.isArray(options.status) ? options.status.join('') : options.status,
       period: options.type === 'last' ? 'today' : 'total',
       magnitude: isOneHundred ? 'per 100 thousand' : 'absolute'
     });

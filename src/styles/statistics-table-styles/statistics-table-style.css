@@ -55,6 +55,7 @@
   background-color: transparent;
   border-color: transparent;
   color: transparent;
+  outline: none;
 }
 .ST__info-wrapper {
   width: 50%;
@@ -82,7 +83,16 @@
 .ST__info-list-status {
   color: #6c757d;
 }
+.ST__info-buttons-img-wrapper {
+  width: 1em;
+}
+.ST__info-buttons-img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
 .ST__info-current-status {
+  text-align: center;
   color: #212529;
 }
 
