@@ -1,5 +1,6 @@
+import InitCasesComponent from './cases/init-cases-component.js';
 export default class CovidDashboardApp {
   static initialize() {
-    throw new Error('Not implemented');
+    new InitCasesComponent().startWork();
   }
 }

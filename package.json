@@ -7,8 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-prod": "npx webpack --mode production",
     "build-dev": "npx webpack --mode development",
-    "start": "webpack serve --mode development",
-    "lint": "npx eslint src/**/*.js --fix"
+    "start": "webpack serve --mode development"
   },
   "repository": {
     "type": "git",
