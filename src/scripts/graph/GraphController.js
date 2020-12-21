@@ -1,4 +1,5 @@
 import GraphComponent from './Graph-component.js';
+import handleNavArrows from './handleNavArrows';
 
 export default class GraphController {
   constructor() {
@@ -25,7 +26,7 @@ export default class GraphController {
       return element.className.includes('chart');
     });
 
-    this.buildCharts('TR');
+    this.buildCharts();
   }
 
   buildCharts(countryCode) {
@@ -86,35 +87,11 @@ export default class GraphController {
     }
 
     if (target.className.includes('left')) {
-      this.handleLeftArrow(activeNavItemIndex);
+      handleNavArrows('left', activeNavItemIndex, this.navItemsArray, this.chartsArray);
     }
 
     if (target.className.includes('right')) {
-      this.handleRightArrow(activeNavItemIndex);
-    }
-  }
-
-  handleLeftArrow(activeNavItemIndex) {
-    this.navItemsArray[activeNavItemIndex].classList.toggle('active');
-    this.chartsArray[activeNavItemIndex].classList.toggle('active');
-    if (activeNavItemIndex > 0) {
-      this.navItemsArray[activeNavItemIndex - 1].classList.toggle('active');
-      this.chartsArray[activeNavItemIndex - 1].classList.toggle('active');
-    } else {
-      this.navItemsArray[this.navItemsArray.length - 1].classList.toggle('active');
-      this.chartsArray[this.navItemsArray.length - 1].classList.toggle('active');
-    }
-  }
-
-  handleRightArrow(activeNavItemIndex) {
-    this.navItemsArray[activeNavItemIndex].classList.toggle('active');
-    this.chartsArray[activeNavItemIndex].classList.toggle('active');
-    if (activeNavItemIndex < this.navItemsArray.length - 1) {
-      this.navItemsArray[activeNavItemIndex + 1].classList.toggle('active');
-      this.chartsArray[activeNavItemIndex + 1].classList.toggle('active');
-    } else {
-      this.navItemsArray[0].classList.toggle('active');
-      this.chartsArray[0].classList.toggle('active');
+      handleNavArrows('right', activeNavItemIndex, this.navItemsArray, this.chartsArray);
     }
   }
 

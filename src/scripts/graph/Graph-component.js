@@ -28,7 +28,6 @@ export default class GraphComponent {
     this.body.prepend(this.sectionGraph);
 
     this.createNavigation();
-    // this.showData([1, 3, 5, 2, 8, 10, 33, 21, 12, 4, 9, 13, 14, 11, 10, 8, 15]);
   }
 
   createNavigation() {
@@ -39,10 +38,10 @@ export default class GraphComponent {
     const DeathsPer100K = createDOMElement('div', 'nav-item deaths-per100K-nav', 'Daily Deaths per 100k');
     const RecoveredPer100K = createDOMElement('div', 'nav-item recovered-per100K-nav', 'Daily Recovered per 100k');
 
-    // const leftArrowImg = createDOMElement('img', 'arrow', '', '', ['src', '../src/assets/left-arrow.svg']);
-    // const rightArrowImg = createDOMElement('img', 'arrow', '', '', ['src', '../src/assets/right-arrow.svg']);
-    const leftArrow = createDOMElement('div', 'left-arrow', 'left');
-    const rightArrow = createDOMElement('div', 'right-arrow', 'right');
+    const leftArrowImg = createDOMElement('img', 'arrow', '', '', ['src', '../src/assets/left-arrow.svg']);
+    const rightArrowImg = createDOMElement('img', 'arrow', '', '', ['src', '../src/assets/right-arrow.svg']);
+    const leftArrow = createDOMElement('div', 'left-arrow', leftArrowImg);
+    const rightArrow = createDOMElement('div', 'right-arrow', rightArrowImg);
 
     this.navigation.append(
       leftArrow,
