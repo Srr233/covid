@@ -10,22 +10,40 @@
 }
 .global-cases-value {
     font-size: 3rem;
-    color: red;
+    color: rgb(230, 0, 0);
 }
 h3 {
     text-align: center;
 }
-.data-cell, .sort-wrapper {
+.table-data {
+    overflow-y: scroll;
+    height: 100vh;
+}
+.last-updated-wrapper {
+    text-align: center;
+    height: 7vh;
+    padding-top: 3vh;
+}
+.last-updated-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.arrows-wrapper {    
+    display: flex;
+    justify-content: space-around;
+    height: 3vh;
+    border-top: 2px solid #363636;
+}
+.data-cell {
     display: grid;
-    grid-template-columns: 20% 50% 30%;  
-    border-bottom: 2px solid #404040;   
+    grid-template-columns: 23% 50% 27%;  
+    border-bottom: 2px solid #363636;
 }
 .cell-value {
-    color: red;
+    color: rgb(230, 0, 0);
 }
-.sort-field:hover, .input-field:hover {
+.input-field {
     cursor: pointer;
-    font-weight: bold;
 }
 .hide {
     display: none;
