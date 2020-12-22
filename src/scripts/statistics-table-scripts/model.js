@@ -2,9 +2,9 @@ import View from './view.js';
 import { forModel } from './services.js';
 
 class Model {
-  constructor() {
+  constructor(data) {
     this.view = new View();
-    this.summary = fetch('https://corona.lmao.ninja/v2/countries');
+    this.summary = data;
     this.currentCountry = {};
     this.allInfo = null;
     this.status = 'total cases';
@@ -93,8 +93,8 @@ class Model {
     this.view.changeList(allInfo, copy.isOneHundred);
   }
 
-  async init() {
-    const json = await forModel.getAllData(this.summary);
+  init() {
+    const json = this.summary;
     this.allInfo = json;
     this.allCases = forModel.getAllCases(this.allInfo);
 

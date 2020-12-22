@@ -5,19 +5,10 @@ $border-radius: 0.125rem;
 $transition: all 0.5s ease;
 $color-dark: #343a40;
 
-body {
-  padding: 0;
-  margin: 0;
-  width: 100vw;
-  height: 100vh;
-}
-
-.interactive-map {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  color: $color-dark;
-  font: 0.875rem Arial, Helvetica, sans-serif;
+#interactive-map {
+  position: relative;  
+  height: 100%;    
+  font-size: 0.875rem;
 }
 
 .info {
@@ -45,18 +36,22 @@ body {
 
 .setting {
   position: absolute;
-  bottom: 0.635rem;
+  bottom: 1.385rem;
   left: 0.635rem;
-  z-index: 5000;  
+  z-index: 1000;  
+
+  input {
+    margin-right: 0.5rem;
+  }
 
   input:hover, label:hover {
     cursor: pointer;
   }
 }
 
-.leaflet-interactive {
-  transition: $transition;
-}
+// .leaflet-interactive {
+//   transition: $transition;
+// }
 
 .leaflet-touch .leaflet-bar {
   border: none;

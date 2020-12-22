@@ -15,11 +15,6 @@ function getCurrentNameInfo(status, type) {
 }
 
 const forModel = {
-  async getAllData(promise) {
-    const response = await promise;
-    const json = await response.json();
-    return json;
-  },
   getAllCases(arr) {
     const copyArg = arr.slice();
     const res = {

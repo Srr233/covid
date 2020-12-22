@@ -60,7 +60,7 @@ $light:#f8f9fa;
         outline: none;
     }
         &__info-wrapper {
-            width: 50%;
+            width: 100%;
             @extend %padding-blocks;
             @extend %colors;
         }
