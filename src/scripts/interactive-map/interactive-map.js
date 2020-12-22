@@ -1,7 +1,6 @@
 import L from 'leaflet';
 import DataGeoCountry from '../../data/custom-medium.geo.json';
 import {
-  urlCovidDataApi,
   urlTemplate,
   mapOptions,
   tileLayerOptions,
@@ -20,30 +19,22 @@ export default class InteractiveMap {
 
   static setting;
 
-  static async initialize() {
-    const response = await fetch(urlCovidDataApi);
+  static async initialize(dataCovidCountry) {
+    const data = this.dataPreparation(dataCovidCountry, DataGeoCountry);
 
-    if (response.ok) {
-      let dataCovidCountry = await response.json();
-      const data = this.dataPreparation(dataCovidCountry, DataGeoCountry);
+    // eslint-disable-next-line no-console
+    console.log(data);
 
-      // eslint-disable-next-line no-console
-      console.log(data);
+    InteractiveMap.createContainer();
+    InteractiveMap.createMap();
 
-      InteractiveMap.createContainer();
-      InteractiveMap.createMap();
-
-      const model = new InteractiveMapModel(data);
-      const view = new InteractiveMapView(model, {
-        map: InteractiveMap.map,
-        setting: InteractiveMap.setting
-      });
-      // eslint-disable-next-line no-unused-vars
-      const controller = new InteractiveMapController(model, view);
-    } else {
-      // eslint-disable-next-line no-alert
-      alert('Error HTTP: ' + response.status);
-    }
+    const model = new InteractiveMapModel(data);
+    const view = new InteractiveMapView(model, {
+      map: InteractiveMap.map,
+      setting: InteractiveMap.setting
+    });
+    // eslint-disable-next-line no-unused-vars
+    const controller = new InteractiveMapController(model, view);
   }
 
   static dataPreparation(dataCovidCountry, dataGeoCountry) {
@@ -81,9 +72,8 @@ export default class InteractiveMap {
     InteractiveMap.createSetting();
 
     container.setAttribute('id', mapContainerName);
-    container.setAttribute('class', mapContainerName);
     container.appendChild(InteractiveMap.setting);
-    document.body.appendChild(container);
+    document.querySelector('.component-interactive-map').appendChild(container);
 
     return container;
   }
