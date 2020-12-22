@@ -1,8 +1,8 @@
 import Model from './model.js';
 
 class Controller {
-  constructor() {
-    this.model = new Model();
+  constructor(data) {
+    this.model = new Model(data);
   }
 
   setCountry(type, period, magnitude, code) {
