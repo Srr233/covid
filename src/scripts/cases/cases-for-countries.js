@@ -46,7 +46,7 @@ export default class ProcessTableData {
       this.renderDataForNewIndicator(index);
     });
   }
-  renderDataForNewIndicator(idx) {
+  renderDataForNewIndicator() {
     this.sortNumbers();
     this.resetData();
     this.renderData();

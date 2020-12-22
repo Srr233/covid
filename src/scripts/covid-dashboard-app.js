@@ -4,7 +4,7 @@ import GraphController from './graph/GraphController.js';
 import InitCasesComponent from './cases/init-cases-component';
 
 export default class CovidDashboardApp {
-  static initialize() {
+  static initialize() { 
     InteractiveMap.initialize();
     new GraphController().initialize();
     const statisticsTable = new StatisticsTable();

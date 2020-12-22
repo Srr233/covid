@@ -3,20 +3,14 @@ import leftArrow from '../../assets/left-arrow.svg';
 import rightArrow from '../../assets/right-arrow.svg';
 
 export default class InitCasesComponent {
-  // acceptData(indicators) {
-
-  // }
+  constructor (countriesDataList) {
+    this.data = countriesDataList;
+  }
 
   startWork() {
     this.makePageLayout();
-    this.extractData();
-  }
-
-  extractData() {
-    fetch('https://corona.lmao.ninja/v2/countries').then(response => response.json()).then(data => {
-      const process = new ProcessTableData(data);
-      process.startProcessing();
-    });
+    const process = new ProcessTableData(this.data);
+    process.startProcessing();
   }
 
   makePageLayout() {
