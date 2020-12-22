@@ -32,15 +32,16 @@ export default class GraphComponent {
     this.body.prepend(this.graphDiv);
 
     this.createNavigation();
+    this.createModalMenu();
   }
 
   createNavigation() {
-    const Cases = createDOMElement('div', 'nav-item cases-nav active', 'Daily Cases');
-    const Deaths = createDOMElement('div', 'nav-item deaths-nav', 'Daily Deaths');
-    const Recovered = createDOMElement('div', 'nav-item recovered-nav', 'Daily Recovered');
-    const CasesPer100K = createDOMElement('div', 'nav-item cases-per100K-nav', 'Daily Cases per 100k');
-    const DeathsPer100K = createDOMElement('div', 'nav-item deaths-per100K-nav', 'Daily Deaths per 100k');
-    const RecoveredPer100K = createDOMElement('div', 'nav-item recovered-per100K-nav', 'Daily Recovered per 100k');
+    const cases = createDOMElement('div', 'nav-item cases-nav active', 'Daily Cases');
+    const deaths = createDOMElement('div', 'nav-item deaths-nav', 'Daily Deaths');
+    const recovered = createDOMElement('div', 'nav-item recovered-nav', 'Daily Recovered');
+    const casesPer100K = createDOMElement('div', 'nav-item cases-per100K-nav', 'Daily Cases per 100k');
+    const deathsPer100K = createDOMElement('div', 'nav-item deaths-per100K-nav', 'Daily Deaths per 100k');
+    const recoveredPer100K = createDOMElement('div', 'nav-item recovered-per100K-nav', 'Daily Recovered per 100k');
 
     const leftArrowImg = createDOMElement('img', 'arrow left', '', '', ['src', leftArrow]);
     const rightArrowImg = createDOMElement('img', 'arrow right', '', '', ['src', rightArrow]);
@@ -49,19 +50,37 @@ export default class GraphComponent {
 
     this.navigation.append(
       leftArrowDiv,
-      Cases,
-      Deaths,
-      Recovered,
-      CasesPer100K,
-      DeathsPer100K,
-      RecoveredPer100K,
+      cases,
+      deaths,
+      recovered,
+      casesPer100K,
+      deathsPer100K,
+      recoveredPer100K,
       rightArrowDiv
     );
   }
 
-  showData(covidData) {
-    this.covidData = covidData;
+  createModalMenu() {
+    const title = createDOMElement('div', 'modal-title', 'Select a Chart');
+    const cases = createDOMElement('div', 'modal cases-modal', 'Daily Cases');
+    const deaths = createDOMElement('div', 'modal deaths-modal', 'Daily Deaths');
+    const recovered = createDOMElement('div', 'modal recovered-modal', 'Daily Recovered');
+    const casesPer100K = createDOMElement('div', 'modal cases-per100K-modal', 'Daily Cases per 100k');
+    const deathsPer100K = createDOMElement('div', 'modal deaths-per100K-modal', 'Daily Deaths per 100k');
+    const recoveredPer100K = createDOMElement('div', 'modal recovered-per100K-modal', 'Daily Recovered per 100k');
+    this.modalMenu = createDOMElement('div', 'modal-menu', '', this.navigation);
+    this.modalMenu.append(
+      title,
+      cases,
+      deaths,
+      recovered,
+      casesPer100K,
+      deathsPer100K,
+      recoveredPer100K
+    );
+  }
 
+  showData(covidData) {
     const confirmedArray = covidData.map((element) => element.Confirmed);
     const deathsArray = covidData.map((element) => element.Deaths);
     const recoveredArray = covidData.map((element) => element.Recovered);
@@ -75,10 +94,11 @@ export default class GraphComponent {
     const yellow = 'rgb(255, 170, 0)';
     const black = 'rgb(34, 34, 34)';
     const green = 'rgb(28, 145, 17)';
+    const magnitude = 'absolute';
 
-    createChart(this.canvas1, confirmedArray, dateArray, yellow);
-    createChart(this.canvas2, deathsArray, dateArray, black);
-    createChart(this.canvas3, recoveredArray, dateArray, green);
+    createChart(this.canvas1, confirmedArray, dateArray, yellow, magnitude);
+    createChart(this.canvas2, deathsArray, dateArray, black, magnitude);
+    createChart(this.canvas3, recoveredArray, dateArray, green, magnitude);
   }
 
   showDataPer100K(covidData, population) {
@@ -115,9 +135,10 @@ export default class GraphComponent {
     const purple = 'rgb(150, 45, 170)';
     const blue = 'rgb(20, 1, 99)';
     const red = 'rgb(155, 0, 19)';
+    const magnitude = 'per 100K';
 
-    createChart(this.canvas4, confirmedPer100KArray, dateArray, purple);
-    createChart(this.canvas5, deathsPer100KArray, dateArray, blue);
-    createChart(this.canvas6, recoveredPer100KArray, dateArray, red);
+    createChart(this.canvas4, confirmedPer100KArray, dateArray, purple, magnitude);
+    createChart(this.canvas5, deathsPer100KArray, dateArray, blue, magnitude);
+    createChart(this.canvas6, recoveredPer100KArray, dateArray, red, magnitude);
   }
 }

@@ -19,6 +19,11 @@ export default class GraphController {
       this.handleEvent(event.target);
     });
 
+    this.modalMenu = this.graphComponent.modalMenu;
+    this.modalMenu.addEventListener('click', (event) => {
+      this.handleModalMenuEvent(event.target);
+    })
+
     this.navItemsArray = Object.values(this.navigation.children).filter((element) => {
       return element.className.includes('nav-item');
     });
@@ -84,7 +89,8 @@ export default class GraphController {
   handleEvent(target) {
     const activeNavItemIndex = this.navItemsArray.findIndex((elem) => elem.className.includes('active'));
     if (target.className.includes('nav-item')) {
-      this.switchChart('deaths', 'per 100 thousand');
+      // this.switchChart('deaths', 'per 100 thousand');
+      this.showModalMenu();
     }
 
     if (target.className.includes('left')) {
@@ -95,6 +101,37 @@ export default class GraphController {
       services.handleNavArrows('right', activeNavItemIndex, this.navItemsArray, this.chartsArray);
     }
     services.setNavAttribute(this.navigation);
+  }
+
+  showModalMenu() {
+    this.modalMenu.classList.toggle('active');
+  }
+
+  handleModalMenuEvent(target) {
+    if (target.className.includes('cases-modal')) {
+      this.switchChart('cases', 'absolute');
+      this.showModalMenu();
+    }
+    if (target.className.includes('deaths-modal')) {
+      this.switchChart('deaths', 'absolute');
+      this.showModalMenu();
+    }
+    if (target.className.includes('recovered-modal')) {
+      this.switchChart('recovered', 'absolute');
+      this.showModalMenu();
+    }
+    if (target.className.includes('cases-per100K-modal')) {
+      this.switchChart('cases', 'per 100 thousand');
+      this.showModalMenu();
+    }
+    if (target.className.includes('deaths-per100K-modal')) {
+      this.switchChart('deaths', 'per 100 thousand');
+      this.showModalMenu();
+    }
+    if (target.className.includes('recovered-per100K-modal')) {
+      this.switchChart('recovered', 'per 100 thousand');
+      this.showModalMenu();
+    }
   }
 
   switchChart(caseType, magnitude) {

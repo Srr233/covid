@@ -1,6 +1,6 @@
 import Chart from 'chart.js';
 
-export default function createChart(canvasNode, dataArray, dateArray, color) {
+export default function createChart(canvasNode, dataArray, dateArray, color, magnitude) {
   return new Chart(canvasNode, {
     type: 'bar',
 
@@ -38,16 +38,13 @@ export default function createChart(canvasNode, dataArray, dateArray, color) {
         }],
         yAxes: [{
           ticks: {
-            maxTicksLimit: 11,
+            maxTicksLimit: 5,
             fontSize: 14,
-            callback: function xTips(value, index) {
-              // const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June',
-              //   'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-              // if (index < month.length) {
-              //   return month[index];
-              // }
-              // return value;
-              return null;
+            callback: function xTips(value) {
+              if (magnitude === 'per 100K') {
+                return Math.round(value * 1000) / 1000;
+              }
+              return (Number.parseFloat(value)) / 1000 + 'k';
             }
           }
         }]
@@ -58,10 +55,10 @@ export default function createChart(canvasNode, dataArray, dateArray, color) {
             return dateArray[tooltipItem[0].index].split('T')[0];
           },
           label: function label(tooltipItem) {
-            const labelData = Math.fround(Number.parseFloat(tooltipItem.value)) / 1000 + 'k';
-            
-            // return labelData.toPrecision(2);
-            return labelData;
+            if (magnitude === 'per 100K') {
+              return Math.round(tooltipItem.value * 1000) / 1000;
+            }
+            return (Number.parseFloat(tooltipItem.value)) / 1000 + 'k';
           }
         },
         backgroundColor: '#343a40',

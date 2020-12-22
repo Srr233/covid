@@ -8,6 +8,7 @@ export default class CovidDashboardApp {
     InteractiveMap.initialize();
     const graph = new GraphController();
     graph.initialize();
+    const graphNavigation = graph.navigation;
     const statisticsTable = new StatisticsTable();
     statisticsTable.init();
     new InitCasesComponent().startWork();
