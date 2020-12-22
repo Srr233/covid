@@ -6,10 +6,11 @@ import rightArrow from '../../assets/right-arrow.svg';
 export default class GraphComponent {
   constructor() {
     this.body = document.body;
+    this.container = document.querySelector('component-graph');
   }
 
   initialize() {
-    this.sectionGraph = createDOMElement('section', 'graph');
+    this.graphDiv = createDOMElement('div', 'graph');
 
     this.canvas1 = createDOMElement('canvas', 'chart-graph', '', '', ['id', 'chart-id']);
     this.canvas2 = createDOMElement('canvas', 'chart-graph', '', '', ['id', 'chart-id']);
@@ -18,16 +19,17 @@ export default class GraphComponent {
     this.canvas5 = createDOMElement('canvas', 'chart-graph', '', '', ['id', 'chart-id']);
     this.canvas6 = createDOMElement('canvas', 'chart-graph', '', '', ['id', 'chart-id']);
 
-    this.Cases = createDOMElement('div', 'chart cases active', this.canvas1, this.sectionGraph);
-    this.Deaths = createDOMElement('div', 'chart deaths', this.canvas2, this.sectionGraph);
-    this.Recovered = createDOMElement('div', 'chart recovered', this.canvas3, this.sectionGraph);
-    this.CasesPer100K = createDOMElement('div', 'chart cases-per100K', this.canvas4, this.sectionGraph);
-    this.DeathsPer100K = createDOMElement('div', 'chart deaths-per100K', this.canvas5, this.sectionGraph);
-    this.RecoveredPer100K = createDOMElement('div', 'chart recovered-per100K', this.canvas6, this.sectionGraph);
+    this.Cases = createDOMElement('div', 'chart cases active', this.canvas1, this.graphDiv);
+    this.Deaths = createDOMElement('div', 'chart deaths', this.canvas2, this.graphDiv);
+    this.Recovered = createDOMElement('div', 'chart recovered', this.canvas3, this.graphDiv);
+    this.CasesPer100K = createDOMElement('div', 'chart cases-per100K', this.canvas4, this.graphDiv);
+    this.DeathsPer100K = createDOMElement('div', 'chart deaths-per100K', this.canvas5, this.graphDiv);
+    this.RecoveredPer100K = createDOMElement('div', 'chart recovered-per100K', this.canvas6, this.graphDiv);
 
-    this.navigation = createDOMElement('div', 'graph-navigation', '', this.sectionGraph);
+    this.navigation = createDOMElement('div', 'graph-navigation', '', this.graphDiv);
 
-    this.body.prepend(this.sectionGraph);
+    // this.container.prepend(this.sectionGraph);
+    this.body.prepend(this.graphDiv);
 
     this.createNavigation();
   }

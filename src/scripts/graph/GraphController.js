@@ -1,5 +1,5 @@
 import GraphComponent from './Graph-component.js';
-import handleNavArrows from './handleNavArrows';
+import services from './services.js';
 
 export default class GraphController {
   constructor() {
@@ -14,15 +14,16 @@ export default class GraphController {
     this.graphComponent = new GraphComponent();
     this.graphComponent.initialize();
 
-    this.graphComponent.navigation.addEventListener('click', (event) => {
+    this.navigation = this.graphComponent.navigation;
+    this.navigation.addEventListener('click', (event) => {
       this.handleEvent(event.target);
     });
 
-    const navigationChildren = this.graphComponent.navigation.children;
-    const graphComponentChildren = this.graphComponent.sectionGraph.children;
-    this.navItemsArray = Object.values(navigationChildren).filter((element) => {
+    this.navItemsArray = Object.values(this.navigation.children).filter((element) => {
       return element.className.includes('nav-item');
     });
+
+    const graphComponentChildren = this.graphComponent.graphDiv.children;
     this.chartsArray = Object.values(graphComponentChildren).filter((element) => {
       return element.className.includes('chart');
     });
@@ -83,16 +84,17 @@ export default class GraphController {
   handleEvent(target) {
     const activeNavItemIndex = this.navItemsArray.findIndex((elem) => elem.className.includes('active'));
     if (target.className.includes('nav-item')) {
-      // this.switchChart('deaths', 'per 100 thousand');
+      this.switchChart('deaths', 'per 100 thousand');
     }
 
     if (target.className.includes('left')) {
-      handleNavArrows('left', activeNavItemIndex, this.navItemsArray, this.chartsArray);
+      services.handleNavArrows('left', activeNavItemIndex, this.navItemsArray, this.chartsArray);
     }
 
     if (target.className.includes('right')) {
-      handleNavArrows('right', activeNavItemIndex, this.navItemsArray, this.chartsArray);
+      services.handleNavArrows('right', activeNavItemIndex, this.navItemsArray, this.chartsArray);
     }
+    services.setNavAttribute(this.navigation);
   }
 
   switchChart(caseType, magnitude) {
@@ -125,5 +127,6 @@ export default class GraphController {
       this.navItemsArray[5].classList.add('active');
       this.chartsArray[5].classList.add('active');
     }
+    services.setNavAttribute(this.navigation);
   }
 }

@@ -1,7 +1,6 @@
 import Chart from 'chart.js';
 
 export default function createChart(canvasNode, dataArray, dateArray, color) {
-  // const confirmed = covidData.map((element) => element.Confirmed);
   return new Chart(canvasNode, {
     type: 'bar',
 
@@ -27,29 +26,42 @@ export default function createChart(canvasNode, dataArray, dateArray, color) {
             maxTicksLimit: 11,
             fontSize: 14,
             callback: function xTips(value, index) {
-              const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June',
-                'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-              if (index < month.length) {
-                return month[index];
-              }
-              return value;
-              // // const newValue = value; // .split('/');
-              // // const valueMonth = newValue; // .splice(0, 1).join('');
-              // // const changedTicksName = month[valueMonth - 1];
-              // const changedTicksName = month[tickCount];
-              // tickCount += 1;
-              // return changedTicksName;
+              // const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June',
+              //   'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+              // if (index < month.length) {
+              //   return month[index];
+              // }
+              // return value;
+              return null;
+            }
+          }
+        }],
+        yAxes: [{
+          ticks: {
+            maxTicksLimit: 11,
+            fontSize: 14,
+            callback: function xTips(value, index) {
+              // const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June',
+              //   'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+              // if (index < month.length) {
+              //   return month[index];
+              // }
+              // return value;
+              return null;
             }
           }
         }]
       },
       tooltips: {
         callbacks: {
-          title: function title(tooltipItem, chart) {
+          title: function title(tooltipItem) {
             return dateArray[tooltipItem[0].index].split('T')[0];
           },
           label: function label(tooltipItem) {
-            return Number.parseFloat(tooltipItem.value) / 1000 + 'k';
+            const labelData = Math.fround(Number.parseFloat(tooltipItem.value)) / 1000 + 'k';
+            
+            // return labelData.toPrecision(2);
+            return labelData;
           }
         },
         backgroundColor: '#343a40',
