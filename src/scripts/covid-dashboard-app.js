@@ -24,8 +24,8 @@ export default class CovidDashboardApp {
   static buildCovidDashboardApp(data) {
     InteractiveMap.initialize(data);
     // new GraphController().initialize();
-    // const statisticsTable = new StatisticsTable();
-    // statisticsTable.init();
+    const statisticsTable = new StatisticsTable(data);
+    statisticsTable.init();
     // new InitCasesComponent().startWork();
     CovidDashboardApp.createButtonFullscreen();
   }
