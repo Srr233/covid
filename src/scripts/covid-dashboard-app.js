@@ -6,7 +6,7 @@ export default class CovidDashboardApp {
   static initialize() {
     InteractiveMap.initialize();
     new GraphController().initialize();
-    const statisticsTable = new StatisticsTable();
+    const statisticsTable = new StatisticsTable(//data);
     statisticsTable.init();
   }
 }
