@@ -1,0 +1,56 @@
+.page-wrapper {
+    background: #f8f9fa; 
+    width: 20vw;
+    
+}
+.global-cases {
+    display: flex;
+    flex-direction: column;    
+    text-align: center;  
+}
+.global-cases-value {
+    font-size: 3rem;
+    color: rgb(230, 0, 0);
+}
+h3 {
+    text-align: center;
+}
+.table-data {
+    overflow-y: scroll;
+    height: 100vh;
+}
+.last-updated-wrapper {
+    text-align: center;
+    height: 7vh;
+    padding-top: 3vh;
+}
+.last-updated-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.arrows-wrapper {    
+    display: flex;
+    justify-content: space-around;
+    height: 3vh;
+    border-top: 2px solid#6c757d;
+    color: rgba($color: #343a40, $alpha: 1);
+}
+.data-cell {
+    display: grid;
+    grid-template-columns: 24% 50% 26%;  
+    border-bottom: 2px solid#6c757d;
+}
+.cell-value {
+    color: rgb(230, 0, 0);
+}
+.input-field {
+    cursor: pointer;
+}
+.hide {
+    display: none;
+}
+#arrow-0, #arrow-1 {
+    width: 20px;
+    height: 20px;
+}
+
