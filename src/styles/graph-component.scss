@@ -1,0 +1,39 @@
+$background:  rgb(247, 247, 247);
+$chart-color: rgb(255, 170, 0);
+.title {
+  color: red;
+}
+.graph {
+  background-color: $background;
+  position: relative;
+  user-select: none;
+}
+.chart {
+  display: none;
+  // visibility: hidden;
+}
+.chart.active {
+  display: block;
+}
+.graph-navigation {
+  color: rgba($color: #343a40, $alpha: 1);
+  display: flex;
+  justify-content: space-between;
+}
+.nav-item {
+  display: none;
+}
+.nav-item:hover {
+  cursor: pointer;
+}
+.nav-item.active {
+  display: block;
+}
+.arrow {
+  // background-color: rgba($color: #00ffff, $alpha: .4);
+  height: 20px;
+  width: 20px;
+}
+.arrow:hover {
+  cursor: pointer;
+}
