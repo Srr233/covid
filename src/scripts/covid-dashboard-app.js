@@ -2,6 +2,7 @@ import StatisticsTable from './statistics-table-scripts/controller.js';
 import InteractiveMap from './interactive-map/interactive-map';
 import GraphController from './graph/GraphController.js';
 import InitCasesComponent from './cases/init-cases-component';
+import ProcessTableData from './cases/cases-for-countries.js';
 import FullscreenOn from '../assets/fullscreen-on.svg';
 import FullscreenOff from '../assets/fullscreen-off.svg';
 import { urlCovidDataApi } from './interactive-map/constants';
@@ -61,4 +62,5 @@ export default class CovidDashboardApp {
       componentContainers: componentContainers
     };
   }
+
 }
