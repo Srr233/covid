@@ -1,8 +1,12 @@
 export default class ProcessTableData {
-  constructor(countriesInfo) {
+  constructor(countriesInfo, type, period, magnitude) {
     this.infoByCountries = countriesInfo;
     this.search = false;
     this.indicator = 'cases';
+    this.type = type;
+    this.period = period;
+    this.magnitude = magnitude;
+
   }
   startProcessing() {
     const lastUpdated = document.querySelector(".last-updated-value");
@@ -11,7 +15,36 @@ export default class ProcessTableData {
     this.countGlobalCases();
     this.sortNumbers();
     this.renderData();
+    this.processIndicators();
     this.processControllers();
+  }
+  processIndicators() {
+    if (this.type === 'cases' && this.period === 'total' && this.magnitude === 'absolute')
+      this.indicator = 'cases';
+    if (this.type === 'cases' && this.period === 'today' && this.magnitude === 'absolute')
+      this.indicator = 'todayCases';
+    if (this.type === 'cases' && this.period === 'total' && this.magnitude === 'per 100 thousand')
+      this.indicator = 'casesPerOneMillion';
+    if (this.type === 'cases' && this.period === 'today' && this.magnitude === 'per 100 thousand')
+      this.indicator = 'todayCases1';
+    if (this.type === 'deaths' && this.period === 'total' && this.magnitude === 'absolute')
+      this.indicator = 'deaths';
+    if (this.type === 'deaths' && this.period === 'today' && this.magnitude === 'absolute')
+      this.indicator = 'todayDeaths';
+    if (this.type === 'deaths' && this.period === 'total' && this.magnitude === 'per 100 thousand')
+      this.indicator = 'DeathsPerOneMillion';
+    if (this.type === 'deaths' && this.period === 'today' && this.magnitude === 'per 100 thousand')
+      this.indicator = 'todayDeaths1';
+    if (this.type === 'recovered' && this.period === 'total' && this.magnitude === 'absolute')
+      this.indicator = 'recovered';
+    if (this.type === 'recovered' && this.period === 'today' && this.magnitude === 'absolute')
+      this.indicator = 'todayRecovered';
+    if (this.type === 'recovered' && this.period === 'total' && this.magnitude === 'per 100 thousand')
+      this.indicator = 'RecoveredPerOneMillion';
+    if (this.type === 'recovered' && this.period === 'today' && this.magnitude === 'per 100 thousand')
+      this.indicator = 'todayRecovered1';
+    this.renderDataForNewIndicator();
+    //this.processControllers();
   }
   processControllers() {
     const criterias = ['cases', 'deaths', 'recovered', 'todayCases', 'todayDeaths', 'todayRecovered', 'casesPerOneMillion',
@@ -23,11 +56,15 @@ export default class ProcessTableData {
       'Global Cases per 100,000', 'Global Deaths per 100,000', 'Global Recovered per 100,000',
       'Global Cases per 100,000 for today', 'Global Deaths per 100,000 for today', 'Global Recovered per 100,000 for today'];
     const globalCasesTxt = document.querySelector(".global-cases-txt");
+    //const globalCasesTxt = document.querySelector(".global-cases-txt");
     const arrowsWrapper = document.querySelector(".arrows-wrapper");
     const leftArrow = arrowsWrapper.querySelector("#arrow-0");
     const rightArrow = arrowsWrapper.querySelector("#arrow-1");
     const inputField = document.querySelector(".input-field");
     inputField.addEventListener("input", (e) => { this.searchData(e) });
+    let index = criterias.indexOf(this.indicator);
+    arrowsWrapper.childNodes[1].nodeValue = criteriasNames[index];
+    globalCasesTxt.textContent = globalNames[index];
     this.clickOnCellData();
     rightArrow.addEventListener("click", () => {
       let index = criterias.indexOf(this.indicator);
@@ -56,7 +93,6 @@ export default class ProcessTableData {
   clickOnCellData() {
     document.querySelectorAll(".data-cell").forEach((cellData) => {
       cellData.addEventListener("click", () => {
-        console.log("this.search", this.search);
         if (this.search) {
           document.querySelectorAll(".data-cell").forEach((item) => {
             item.classList.toggle("hide", true);
@@ -80,7 +116,6 @@ export default class ProcessTableData {
   }
   renderData() {
     let crit = this.indicator; let sum;
-    // console.log(this.infoByCountries);
     this.infoByCountries.forEach((value) => {
       if (value.countryInfo.iso2 === null) return;
       let divWrapper = document.createElement("div");
@@ -118,7 +153,6 @@ export default class ProcessTableData {
     let crit = this.indicator;
     if (crit.includes('1')) crit = crit.slice(0, crit.length - 1);
     this.infoByCountries.sort((a, b) => (b[crit] > a[crit]) ? 1 : -1);
-    console.log("SORTED: ", this.infoByCountries);
   }
   searchData(e) {
     this.search = true;
