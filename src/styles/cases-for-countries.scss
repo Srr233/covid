@@ -34,12 +34,12 @@ h3 {
 .arrows-wrapper {    
     display: flex;
     justify-content: space-around;
-    height: 2vh;
+    height: 3vh;
     border-top: 1px solid#6c757d;
 }
 .data-cell {
     display: grid;
-    grid-template-columns: 3fr 5fr 2fr;  
+    grid-template-columns: 4fr 5fr 1fr;  
     border-bottom: 1px solid#6c757d;
 }
 .cell-value {
@@ -55,4 +55,19 @@ h3 {
     width: 20px;
     height: 20px;
 }
-
+@media (min-width:499px) and (max-width:1399px) {
+    .last-updated-wrapper {
+        height: 5vh;
+        padding-top: 1vh;
+    }
+    .last-updated-value {
+        font-size: 1rem;
+    }
+    .global-cases-value {
+        font-size: 1.5rem;
+    }
+    .table-header {
+        height: 20%;
+        word-break: break-word;
+    }
+}
