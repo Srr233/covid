@@ -2,10 +2,8 @@ import StatisticsTable from './statistics-table-scripts/controller.js';
 import InteractiveMap from './interactive-map/interactive-map';
 import GraphController from './graph/GraphController.js';
 import InitCasesComponent from './cases/init-cases-component';
-import ProcessTableData from './cases/cases-for-countries.js';
-import FullscreenOn from '../assets/fullscreen-on.svg';
-import FullscreenOff from '../assets/fullscreen-off.svg';
-import { urlCovidDataApi } from './interactive-map/interactive-map-constants';
+import Fullscreen from '../assets/fullscreen.svg';
+import { urlCovidDataApi, indicators } from './interactive-map/interactive-map-constants';
 import { idComponentContainers } from './covid-dashboard-app-constants';
 import CovidDashboardAppModel from './covid-dashboard-app-model';
 import CovidDashboardAppView from './covid-dashboard-app-view';
@@ -31,13 +29,18 @@ export default class CovidDashboardApp {
     InteractiveMap.initialize(data);
     // new GraphController().initialize();
     const statisticsTable = new StatisticsTable(data);
+    const casesComponent = new InitCasesComponent(data);
+
     statisticsTable.init();
-    // new InitCasesComponent().startWork();
+    casesComponent.startWork(
+      indicators.type.cases,
+      indicators.period.total,
+      indicators.magnitude.absolute
+    );
 
     CovidDashboardApp.createFooter();
 
     const elements = CovidDashboardApp.createButtonFullscreen();
-
     const model = new CovidDashboardAppModel();
     const view = new CovidDashboardAppView(model, {
       map: InteractiveMap.map,
@@ -50,17 +53,17 @@ export default class CovidDashboardApp {
 
   static createButtonFullscreen() {
     const componentContainers = Array.from(document.querySelectorAll('.component-container'));
-    const imgFullscreenOff = document.createElement('img');
+    const imgFullscreen = document.createElement('img');
 
-    imgFullscreenOff.setAttribute('src', FullscreenOff);
-    imgFullscreenOff.setAttribute('alt', 'fullscreen');
+    imgFullscreen.setAttribute('src', Fullscreen);
+    imgFullscreen.setAttribute('alt', 'fullscreen');
 
     const buttons = idComponentContainers.map((id) => {
       const button = document.createElement('button');
 
       button.setAttribute('id', id);
       button.setAttribute('class', 'button-fullscreen');
-      button.appendChild(imgFullscreenOff.cloneNode());
+      button.appendChild(imgFullscreen.cloneNode());
 
       return button;
     });

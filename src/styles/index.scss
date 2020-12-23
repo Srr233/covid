@@ -24,7 +24,7 @@ main {
     height: 100%;
     display: grid;
     grid-template-columns: minmax(12rem, 20%) auto minmax(18rem, 25%);
-    grid-template-rows: auto 16rem;
+    grid-template-rows: calc(100% - 16rem) 16rem;
     grid-gap: 0.5rem;
 
     @media (max-width: 1023px) {
