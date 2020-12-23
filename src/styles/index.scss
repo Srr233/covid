@@ -50,8 +50,7 @@ main {
     .component-container {
       position: relative;
       width: 100%;
-      height: 100%;
-      background-color: white;
+      height: 100%;      
 
       &[data-fullscreen='true'] {
         position: fixed;

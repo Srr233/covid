@@ -20,10 +20,7 @@ export default class InteractiveMap {
   static setting;
 
   static async initialize(dataCovidCountry) {
-    const data = this.dataPreparation(dataCovidCountry, DataGeoCountry);
-
-    // eslint-disable-next-line no-console
-    console.log(data);
+    const data = this.dataPreparation(dataCovidCountry, DataGeoCountry);   
 
     InteractiveMap.createContainer();
     InteractiveMap.createMap();
