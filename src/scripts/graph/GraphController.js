@@ -1,10 +1,9 @@
 import GraphComponent from './Graph-component.js';
-import handleNavArrows from './handleNavArrows';
+import services from './services.js';
 
 export default class GraphController {
   constructor() {
-    this.apiUrlWorld = 'https://api.covid19api.com/total/country/united-states';
-    // this.apiUrlWorld = 'https://disease.sh/v3/covid-19/historical/US';
+    this.apiUrlWorld = 'https://corona-api.com/timeline';
     this.apiUrlCountries = 'https://api.covid19api.com/total/country/';
     this.apiUrl = 'https://api.covid19api.com/countries';
     this.apiPopulation = 'https://disease.sh/v3/covid-19/countries';
@@ -14,15 +13,29 @@ export default class GraphController {
     this.graphComponent = new GraphComponent();
     this.graphComponent.initialize();
 
-    this.graphComponent.navigation.addEventListener('click', (event) => {
+    this.navigation = this.graphComponent.navigation;
+    this.navigation.addEventListener('click', (event) => {
       this.handleEvent(event.target);
     });
 
-    const navigationChildren = this.graphComponent.navigation.children;
-    const graphComponentChildren = this.graphComponent.sectionGraph.children;
-    this.navItemsArray = Object.values(navigationChildren).filter((element) => {
+    this.modalMenu = this.graphComponent.modalMenu;
+    this.modalMenu.addEventListener('click', (event) => {
+      this.handleModalMenuEvent(event.target);
+    });
+
+    document.body.addEventListener('click', (event) => {
+      if (!event.target.className.includes('modal-title')
+        && !event.target.className.includes('modal')
+        && !event.target.className.includes('nav-item')) {
+        this.modalMenu.classList.remove('active');
+      }
+    });
+
+    this.navItemsArray = Object.values(this.navigation.children).filter((element) => {
       return element.className.includes('nav-item');
     });
+
+    const graphComponentChildren = this.graphComponent.graphDiv.children;
     this.chartsArray = Object.values(graphComponentChildren).filter((element) => {
       return element.className.includes('chart');
     });
@@ -51,7 +64,8 @@ export default class GraphController {
         return response.json();
       })
       .then((data) => {
-        this.graphComponent.showData(data);
+        const isGlobal = false;
+        this.graphComponent.showData(data, isGlobal);
         this.buildChartsPer100K(data, countryCode);
       });
   }
@@ -62,10 +76,9 @@ export default class GraphController {
         return response.json();
       })
       .then((data) => {
-        this.graphComponent.showData(data);
-        this.graphComponent.showDataPer100K(data);
-        // this.graphComponent.showData(data.timeline);
-        // this.graphComponent.showDataPer100K(data.timeline);
+        const isGlobal = true;
+        this.graphComponent.showData(data.data, isGlobal);
+        this.graphComponent.showDataPer100K(data.data);
       });
   }
 
@@ -83,15 +96,47 @@ export default class GraphController {
   handleEvent(target) {
     const activeNavItemIndex = this.navItemsArray.findIndex((elem) => elem.className.includes('active'));
     if (target.className.includes('nav-item')) {
-      // this.switchChart('deaths', 'per 100 thousand');
+      this.showModalMenu();
     }
 
     if (target.className.includes('left')) {
-      handleNavArrows('left', activeNavItemIndex, this.navItemsArray, this.chartsArray);
+      services.handleNavArrows('left', activeNavItemIndex, this.navItemsArray, this.chartsArray);
     }
 
     if (target.className.includes('right')) {
-      handleNavArrows('right', activeNavItemIndex, this.navItemsArray, this.chartsArray);
+      services.handleNavArrows('right', activeNavItemIndex, this.navItemsArray, this.chartsArray);
+    }
+    services.setNavAttribute(this.navigation);
+  }
+
+  showModalMenu() {
+    this.modalMenu.classList.toggle('active');
+  }
+
+  handleModalMenuEvent(target) {
+    if (target.className.includes('cases-modal')) {
+      this.switchChart('cases', 'absolute');
+      this.showModalMenu();
+    }
+    if (target.className.includes('deaths-modal')) {
+      this.switchChart('deaths', 'absolute');
+      this.showModalMenu();
+    }
+    if (target.className.includes('recovered-modal')) {
+      this.switchChart('recovered', 'absolute');
+      this.showModalMenu();
+    }
+    if (target.className.includes('cases-per100K-modal')) {
+      this.switchChart('cases', 'per 100 thousand');
+      this.showModalMenu();
+    }
+    if (target.className.includes('deaths-per100K-modal')) {
+      this.switchChart('deaths', 'per 100 thousand');
+      this.showModalMenu();
+    }
+    if (target.className.includes('recovered-per100K-modal')) {
+      this.switchChart('recovered', 'per 100 thousand');
+      this.showModalMenu();
     }
   }
 
@@ -125,5 +170,6 @@ export default class GraphController {
       this.navItemsArray[5].classList.add('active');
       this.chartsArray[5].classList.add('active');
     }
+    services.setNavAttribute(this.navigation);
   }
 }
