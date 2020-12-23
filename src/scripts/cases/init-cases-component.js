@@ -3,24 +3,19 @@ import leftArrow from '../../assets/left-arrow.svg';
 import rightArrow from '../../assets/right-arrow.svg';
 
 export default class InitCasesComponent {
-  // acceptData(indicators) {
-
-  // }
-
-  startWork() {
-    this.makePageLayout();
-    this.extractData();
+  constructor (data) {
+    this.countriesDataList = data;
   }
 
-  extractData() {
-    fetch('https://corona.lmao.ninja/v2/countries').then(response => response.json()).then(data => {
-      const process = new ProcessTableData(data);
-      process.startProcessing();
-    });
+  startWork(type, period, magnitude) {
+    this.makeComponentLayout();
+    const process = new ProcessTableData(this.countriesDataList, type, period, magnitude);
+    process.startProcessing();
   }
 
-  makePageLayout() {
-    const pageWrapper = document.createElement('div');
+  makeComponentLayout() {
+    //const pageWrapper = document.createElement('div');
+    const pageWrapper = document.querySelector('.component-cases-for-countries');
     const globalCases = document.createElement('div');
     const globalCasesTxt = document.createElement('h3');
     const globalCasesVal = document.createElement('div');
@@ -62,7 +57,7 @@ export default class InitCasesComponent {
     pageWrapper.appendChild(dataTableWrapper);
     pageWrapper.appendChild(arrowsWrapper);
     pageWrapper.appendChild(lastUpdatedWrapper);
-    document.body.appendChild(pageWrapper);
+    //document.body.appendChild(pageWrapper);
     globalCasesTxt.textContent = 'Global Cases';
     dataTableHeader.textContent = 'Cases by Country/Region/Sovereignty';
     lastUpdatedTxt.textContent = 'Last Updated at (M/D/YYYY)';

@@ -2,7 +2,7 @@ import { forView } from './services.js';
 
 class View {
   constructor() {
-    this.wrapperTable = document.querySelector('body');
+    this.wrapperTable = document.querySelector('.component-statistics-table');
     this.table = null;
   }
 
