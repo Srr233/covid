@@ -31,7 +31,7 @@ export default function createChart(canvasNode, dataArray, dateArray, color, mag
         yAxes: [{
           ticks: {
             maxTicksLimit: 5,
-            fontSize: 14,
+            fontSize: 12,
             callback: function xTips(value) {
               if (magnitude === 'per 100K') {
                 return Math.round(value * 1000) / 1000;
