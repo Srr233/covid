@@ -6,7 +6,7 @@ import {
   tileLayerOptions,
   mapContainerName,
   indicators
-} from './constants';
+} from './interactive-map-constants';
 import InteractiveMapModel from './interactive-map-model';
 import InteractiveMapView from './interactive-map-view';
 import InteractiveMapController from './interactive-map-controller';

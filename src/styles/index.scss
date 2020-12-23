@@ -1,19 +1,20 @@
 @import './statistics-table-style.scss';
 @import './interactive-map.scss';
 @import './graph-component.scss';
+@import './cases-for-countries.scss';
 
 $color-dark: #343a40;
 
 body {
   padding: 0;
-  margin: 0;  
-  font-family: Arial, Helvetica, sans-serif;  
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
   color: $color-dark;
 }
 
 main {
   width: 100%;
-  height: calc(100vh - 3rem);
+  height: calc(100vh - 1.5rem);
   @media (max-width: 1023px) {
     height: auto;
   }
@@ -24,13 +25,13 @@ main {
     height: 100%;
     display: grid;
     grid-template-columns: minmax(12rem, 20%) auto minmax(18rem, 25%);
-    grid-template-rows: auto 16rem;
+    grid-template-rows: calc(100% - 16rem) 16rem;
     grid-gap: 0.5rem;
 
     @media (max-width: 1023px) {
       grid-template-columns: minmax(14rem, 50%) minmax(14rem, 50%);
       grid-template-rows: 24rem 48rem 24rem;
-    }    
+    }
 
     .load-overlay {
       position: fixed;
@@ -50,8 +51,22 @@ main {
     .component-container {
       position: relative;
       width: 100%;
-      height: 100%;     
-      
+      height: 100%;
+      background-color: white;
+
+      &[data-fullscreen='true'] {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 1001;        
+
+        .button-fullscreen {
+          z-index: 1001;
+        }
+      }
+
       .button-fullscreen {
         position: absolute;
         top: 0;
@@ -59,7 +74,7 @@ main {
         padding: 0.2rem;
         display: flex;
         justify-content: center;
-        align-items: center;        
+        align-items: center;
         z-index: 1000;
         border: none;
         background: white;
@@ -73,11 +88,11 @@ main {
           cursor: pointer;
           opacity: 1;
         }
-        
+
         img {
           width: 1rem;
           height: 1rem;
-        }       
+        }
       }
     }
 
@@ -86,7 +101,7 @@ main {
 
       @media (max-width: 1023px) {
         grid-area: 1 / 1 / span 1 / span 1;
-      }     
+      }
     }
 
     .component-interactive-map{
@@ -94,7 +109,7 @@ main {
 
       @media (max-width: 1023px) {
         grid-area: 2 / 1 / span 1 / span 2;
-      }      
+      }
     }
 
     .component-statistics-table {
@@ -102,7 +117,7 @@ main {
 
       @media (max-width: 1023px) {
         grid-area: 1 / 2 / span 1 / span 1;
-      }      
+      }
     }
 
     .component-graph {
@@ -110,24 +125,24 @@ main {
 
       @media (max-width: 1023px) {
         grid-area: 3 / 1 / span 1 / span 2;
-      }      
+      }
     }
   }
 }
 
 footer {
   width: 100%;
-  height: 3rem;  
+  height: 1.5rem;
 
-  .footer { 
+  .footer {
     display: flex;
     justify-content: center;
-    align-items: center;    
+    align-items: center;
     height: 100%;
-    font-size: 0.75rem;    
+    font-size: 0.75rem;
 
     div {
-      padding: 0.5rem 0.25rem;
+      padding: 0 0.25rem;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -139,8 +154,8 @@ footer {
 
     .rs-school-js {
       img {
-        height: 2rem;
+        height: 1rem;
       }
-    }  
+    }
   }
 }

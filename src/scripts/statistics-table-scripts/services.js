@@ -37,10 +37,10 @@ const forModel = {
     };
 
     for (let i = 0; i < copyArg.length; i += 1) {
-      res.total.cases += copyArg[i].cases;
-      res.total.recovered += copyArg[i].recovered;
-      res.total.deaths += copyArg[i].deaths;
       if (copyArg[i].population !== 0) {
+        res.total.cases += copyArg[i].cases;
+        res.total.recovered += copyArg[i].recovered;
+        res.total.deaths += copyArg[i].deaths;
         res.total['total on 100k cases'] += Math.floor(copyArg[i].cases / (copyArg[i].population / 100000));
         res.total['total on 100k deaths'] += Math.floor(copyArg[i].deaths / (copyArg[i].population / 100000));
         res.total['total on 100k recovered'] += Math.floor(copyArg[i].recovered / (copyArg[i].population / 100000));
@@ -58,12 +58,11 @@ const forModel = {
   },
   getNextTypeStatistics(status, direction) {
     const statuses = [
-      'total deaths', 'total recovered', 'total cases',
-      'total on 100k deaths', 'total on 100k recovered',
-      'total on 100k cases', 'last deaths',
-      'last recovered', 'last cases',
-      'last on 100k cases', 'last on 100k deaths',
-      'last on 100k recovered'
+      'total cases', 'total deaths', 'total recovered',
+      'last cases', 'last deaths', 'last recovered',
+      'total on 100k cases', 'total on 100k deaths',
+      'total on 100k recovered', 'last on 100k cases',
+      'last on 100k deaths', 'last on 100k recovered'
     ];
     const indexStatus = statuses.indexOf(status);
     let res = '';

@@ -1,7 +1,6 @@
-.page-wrapper {
+.component-cases-for-countries {
     background: #f8f9fa; 
-    width: 20vw;
-    
+    width: 100%;
 }
 .global-cases {
     display: flex;
@@ -16,8 +15,8 @@ h3 {
     text-align: center;
 }
 .table-data {
-    overflow-y: scroll;
-    height: 100vh;
+    overflow-y: auto;
+    height: 50%;
 }
 .last-updated-wrapper {
     text-align: center;
