@@ -1,5 +1,5 @@
 import EventEmitter from '../event-emitter';
-import { indicators, grades } from './constants';
+import { indicators, grades } from './interactive-map-constants';
 
 export default class InteractiveMapModel {
   #type;
