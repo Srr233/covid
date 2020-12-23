@@ -19,6 +19,7 @@ $chart-color: rgb(255, 170, 0);
   color: rgba($color: #343a40, $alpha: 1);
   display: flex;
   justify-content: space-between;
+  position: relative;
 }
 .nav-item {
   display: none;
@@ -35,5 +36,30 @@ $chart-color: rgb(255, 170, 0);
   width: 20px;
 }
 .arrow:hover {
+  cursor: pointer;
+}
+.modal-menu {
+  display: none;
+  position: absolute;
+  top: 0;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  border: 1px solid gray;
+}
+.modal-menu.active {
+  display: block;
+  top: -212px;
+}
+.modal-title {
+  background-color: gray;
+  padding: 5px 20px;
+}
+.modal {
+  background-color: lightgray;
+  padding: 5px 20px;
+  border-top: 1px solid gray;
+}
+.modal:hover {
   cursor: pointer;
 }
