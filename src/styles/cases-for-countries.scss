@@ -6,6 +6,11 @@
     display: flex;
     flex-flow: column;
 }
+.last-updated-wrapper {
+    text-align: center;    
+    height: 7vh;
+    padding-top: 3vh;
+}
 .global-cases {
     display: flex;
     flex-direction: column;    
@@ -22,11 +27,6 @@ h3 {
     overflow-y: auto;
     height: 50%;
 }
-.last-updated-wrapper {
-    text-align: center;
-    height: 7vh;
-    padding-top: 3vh;
-}
 .last-updated-value {
     font-size: 1.5rem;
     font-weight: bold;
@@ -34,14 +34,13 @@ h3 {
 .arrows-wrapper {    
     display: flex;
     justify-content: space-around;
-    height: 3vh;
-    border-top: 2px solid#6c757d;
-    color: rgba($color: #343a40, $alpha: 1);
+    height: 2vh;
+    border-top: 1px solid#6c757d;
 }
 .data-cell {
     display: grid;
     grid-template-columns: 3fr 5fr 2fr;  
-    border-bottom: 2px solid#6c757d;
+    border-bottom: 1px solid#6c757d;
 }
 .cell-value {
     color: rgb(230, 0, 0);

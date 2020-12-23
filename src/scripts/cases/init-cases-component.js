@@ -20,7 +20,9 @@ export default class InitCasesComponent {
     const globalCasesTxt = document.createElement('h3');
     const globalCasesVal = document.createElement('div');
     const dataTableHeader = document.createElement('h3');
+    //const menuWrapper = document.createElement('div');
     const inputWrapper = document.createElement('div');
+    //const keyboardButton = document.createElement('button');
     const dataTableWrapper = document.createElement('div');
     const arrowsWrapper = document.createElement('div');
     const lastUpdatedWrapper = document.createElement('div');
@@ -30,6 +32,7 @@ export default class InitCasesComponent {
     const lArrow = document.createElement('img');
     const rArrow = document.createElement('img');
     pageWrapper.classList.add('page-wrapper');
+    pageWrapper.appendChild(lastUpdatedWrapper);
     globalCasesVal.classList.add('global-cases-value');
     globalCasesTxt.classList.add('global-cases-txt');
     globalCases.classList.add('global-cases');
@@ -41,9 +44,13 @@ export default class InitCasesComponent {
     rArrow.setAttribute('id', 'arrow-1');
     rArrow.setAttribute('src', `${rightArrow}`);
     arrowsWrapper.classList.add('arrows-wrapper');
+    //menuWrapper.classList.add('menu-wrapper');
+    //keyboardButton.classList.add('keyboard-button');
     lastUpdatedWrapper.classList.add('last-updated-wrapper');
     lastUpdatedValue.classList.add('last-updated-value');
     lastUpdatedTxt.classList.add('last-updated-txt');
+    //menuWrapper.appendChild(inputWrapper);
+    //menuWrapper.appendChild(keyboardButton);
     arrowsWrapper.appendChild(lArrow);
     arrowsWrapper.appendChild(txt);
     arrowsWrapper.appendChild(rArrow);
@@ -51,12 +58,12 @@ export default class InitCasesComponent {
     lastUpdatedWrapper.appendChild(lastUpdatedValue);
     globalCases.appendChild(globalCasesTxt);
     globalCases.appendChild(globalCasesVal);
-    pageWrapper.appendChild(globalCases);
+    pageWrapper.appendChild(globalCases);    
     pageWrapper.appendChild(dataTableHeader);
+    //pageWrapper.appendChild(menuWrapper);
     pageWrapper.appendChild(inputWrapper);
     pageWrapper.appendChild(dataTableWrapper);
-    pageWrapper.appendChild(arrowsWrapper);
-    pageWrapper.appendChild(lastUpdatedWrapper);
+    pageWrapper.appendChild(arrowsWrapper);    
     //document.body.appendChild(pageWrapper);
     globalCasesTxt.textContent = 'Global Cases';
     dataTableHeader.textContent = 'Cases by Country/Region/Sovereignty';
