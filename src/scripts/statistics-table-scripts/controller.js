@@ -51,6 +51,12 @@ class Controller {
 
   init() {
     this.model.init();
+    this.buttonLeft = document.querySelector('.ST__info-buttons__left');
+    this.buttonRight = document.querySelector('.ST__info-buttons__right');
+
+    this.buttonLeft.addEventListener('click', this.changeType.bind(this));
+    this.buttonRight.addEventListener('click', this.changeType.bind(this));
+
     this.changeType = this.changeType.bind(this);
   }
 }
