@@ -42,7 +42,7 @@ $light:#f8f9fa;
 }
 .ST {
     display: flex;
-    height: 95%;
+    height: 100%;
     justify-items: center;
     font-size: 16px;
 
@@ -61,6 +61,8 @@ $light:#f8f9fa;
     }
         &__info-wrapper {
             width: 100%;
+            display: flex;
+            flex-direction: column;
             @extend %padding-blocks;
             @extend %colors;
         }
