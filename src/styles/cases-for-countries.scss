@@ -6,6 +6,11 @@
     display: flex;
     flex-flow: column;
 }
+.last-updated-wrapper {
+    text-align: center;    
+    height: 7vh;
+    padding-top: 3vh;
+}
 .global-cases {
     display: flex;
     flex-direction: column;    
@@ -22,11 +27,6 @@ h3 {
     overflow-y: auto;
     height: 50%;
 }
-.last-updated-wrapper {
-    text-align: center;
-    height: 7vh;
-    padding-top: 3vh;
-}
 .last-updated-value {
     font-size: 1.5rem;
     font-weight: bold;
@@ -35,13 +35,12 @@ h3 {
     display: flex;
     justify-content: space-around;
     height: 3vh;
-    border-top: 2px solid#6c757d;
-    color: rgba($color: #343a40, $alpha: 1);
+    border-top: 1px solid#6c757d;
 }
 .data-cell {
     display: grid;
-    grid-template-columns: 3fr 5fr 2fr;  
-    border-bottom: 2px solid#6c757d;
+    grid-template-columns: 4fr 5fr 1fr;  
+    border-bottom: 1px solid#6c757d;
 }
 .cell-value {
     color: rgb(230, 0, 0);
@@ -56,4 +55,19 @@ h3 {
     width: 20px;
     height: 20px;
 }
-
+@media (min-width:499px) and (max-width:1399px) {
+    .last-updated-wrapper {
+        height: 5vh;
+        padding-top: 1vh;
+    }
+    .last-updated-value {
+        font-size: 1rem;
+    }
+    .global-cases-value {
+        font-size: 1.5rem;
+    }
+    .table-header {
+        height: 20%;
+        word-break: break-word;
+    }
+}
