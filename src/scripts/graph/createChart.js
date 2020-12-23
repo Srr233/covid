@@ -6,8 +6,6 @@ export default function createChart(canvasNode, dataArray, dateArray, color, mag
 
     data: {
       labels: dataArray,
-      // labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
-      //   'October', 'November', 'December'],
       datasets: [{
         label: '',
         barPercentage: 1,
@@ -25,13 +23,7 @@ export default function createChart(canvasNode, dataArray, dateArray, color, mag
           ticks: {
             maxTicksLimit: 11,
             fontSize: 14,
-            callback: function xTips(value, index) {
-              // const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June',
-              //   'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-              // if (index < month.length) {
-              //   return month[index];
-              // }
-              // return value;
+            callback: function xTips() {
               return null;
             }
           }

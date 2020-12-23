@@ -5,8 +5,7 @@ import rightArrow from '../../assets/right-arrow.svg';
 
 export default class GraphComponent {
   constructor() {
-    this.body = document.body;
-    this.container = document.querySelector('component-graph');
+    this.container = document.querySelector('.component-graph');
   }
 
   initialize() {
@@ -28,8 +27,7 @@ export default class GraphComponent {
 
     this.navigation = createDOMElement('div', 'graph-navigation', '', this.graphDiv);
 
-    // this.container.prepend(this.sectionGraph);
-    this.body.prepend(this.graphDiv);
+    this.container.appendChild(this.graphDiv);
 
     this.createNavigation();
     this.createModalMenu();
@@ -80,21 +78,29 @@ export default class GraphComponent {
     );
   }
 
-  showData(covidData) {
-    const confirmedArray = covidData.map((element) => element.Confirmed);
-    const deathsArray = covidData.map((element) => element.Deaths);
-    const recoveredArray = covidData.map((element) => element.Recovered);
-    const dateArray = covidData.map((element) => element.Date);
-
-    // const confirmedArray = Object.values(covidData.cases);
-    // const deathsArray = Object.values(covidData.deaths);
-    // const recoveredArray = Object.values(covidData.recovered);
-    // const dateArray = Object.keys(covidData.cases);
-
+  showData(covidData, isGlobal) {
+    let data = covidData;
     const yellow = 'rgb(255, 170, 0)';
     const black = 'rgb(34, 34, 34)';
     const green = 'rgb(28, 145, 17)';
     const magnitude = 'absolute';
+
+    if (isGlobal) {
+      data = covidData.reverse();
+      const confirmedArray = data.map((element) => element.confirmed);
+      const deathsArray = data.map((element) => element.deaths);
+      const recoveredArray = data.map((element) => element.recovered);
+      const dateArray = data.map((element) => element.date);
+
+      createChart(this.canvas1, confirmedArray, dateArray, yellow, magnitude);
+      createChart(this.canvas2, deathsArray, dateArray, black, magnitude);
+      createChart(this.canvas3, recoveredArray, dateArray, green, magnitude);
+      return;
+    }
+    const confirmedArray = data.map((element) => element.Confirmed);
+    const deathsArray = data.map((element) => element.Deaths);
+    const recoveredArray = data.map((element) => element.Recovered);
+    const dateArray = data.map((element) => element.Date);
 
     createChart(this.canvas1, confirmedArray, dateArray, yellow, magnitude);
     createChart(this.canvas2, deathsArray, dateArray, black, magnitude);
@@ -103,39 +109,35 @@ export default class GraphComponent {
 
   showDataPer100K(covidData, population) {
     const WORLD_POPULATION = 7833601000;
-    const confirmedArray = covidData.map((element) => element.Confirmed);
-    const deathsArray = covidData.map((element) => element.Deaths);
-    const recoveredArray = covidData.map((element) => element.Recovered);
-    const dateArray = covidData.map((element) => element.Date);
-
-    // const confirmedArray = Object.values(covidData.cases);
-    // const deathsArray = Object.values(covidData.deaths);
-    // const recoveredArray = Object.values(covidData.recovered);
-    // const dateArray = Object.keys(covidData.cases);
-
-    const confirmedPer100KArray = confirmedArray.map((el) => {
-      if (population) {
-        return el / (population / 100000);
-      }
-      return el / (WORLD_POPULATION / 100000);
-    });
-    const deathsPer100KArray = deathsArray.map((el) => {
-      if (population) {
-        return el / (population / 100000);
-      }
-      return el / (WORLD_POPULATION / 100000);
-    });
-    const recoveredPer100KArray = recoveredArray.map((el) => {
-      if (population) {
-        return el / (population / 100000);
-      }
-      return el / (WORLD_POPULATION / 100000);
-    });
-
     const purple = 'rgb(150, 45, 170)';
     const blue = 'rgb(20, 1, 99)';
     const red = 'rgb(155, 0, 19)';
     const magnitude = 'per 100K';
+
+    if (population) {
+      const confirmedArray = covidData.map((element) => element.Confirmed);
+      const deathsArray = covidData.map((element) => element.Deaths);
+      const recoveredArray = covidData.map((element) => element.Recovered);
+      const dateArray = covidData.map((element) => element.Date);
+
+      const confirmedPer100KArray = confirmedArray.map((el) => el / (population / 100000));
+      const deathsPer100KArray = deathsArray.map((el) => el / (population / 100000));
+      const recoveredPer100KArray = recoveredArray.map((el) => el / (population / 100000));
+
+      createChart(this.canvas4, confirmedPer100KArray, dateArray, purple, magnitude);
+      createChart(this.canvas5, deathsPer100KArray, dateArray, blue, magnitude);
+      createChart(this.canvas6, recoveredPer100KArray, dateArray, red, magnitude);
+      return;
+    }
+
+    const confirmedArray = covidData.map((element) => element.confirmed);
+    const deathsArray = covidData.map((element) => element.deaths);
+    const recoveredArray = covidData.map((element) => element.recovered);
+    const dateArray = covidData.map((element) => element.date);
+
+    const confirmedPer100KArray = confirmedArray.map((el) => el / (WORLD_POPULATION / 100000));
+    const deathsPer100KArray = deathsArray.map((el) => el / (WORLD_POPULATION / 100000));
+    const recoveredPer100KArray = recoveredArray.map((el) => el / (WORLD_POPULATION / 100000));
 
     createChart(this.canvas4, confirmedPer100KArray, dateArray, purple, magnitude);
     createChart(this.canvas5, deathsPer100KArray, dateArray, blue, magnitude);

@@ -39,7 +39,7 @@ $chart-color: rgb(255, 170, 0);
   cursor: pointer;
 }
 .modal-menu {
-  visibility: hidden;
+  display: none;
   position: absolute;
   top: 0;
   margin-left: 50%;
@@ -48,7 +48,7 @@ $chart-color: rgb(255, 170, 0);
   border: 1px solid gray;
 }
 .modal-menu.active {
-  visibility: visible;
+  display: block;
   top: -212px;
 }
 .modal-title {
