@@ -1,4 +1,4 @@
-$background:  rgb(247, 247, 247);
+$background: #f8f9fa;
 $chart-color: rgb(255, 170, 0);
 .title {
   color: red;
@@ -7,10 +7,18 @@ $chart-color: rgb(255, 170, 0);
   background-color: $background;
   position: relative;
   user-select: none;
+  padding-top: 20px;
+  height: 100%;
+}
+canvas {
+  height: 100% !important;
 }
 .chart {
   display: none;
-  // visibility: hidden;
+  height: 85%
+}
+#chart-id {
+  height: 90% !important;
 }
 .chart.active {
   display: block;
@@ -19,9 +27,12 @@ $chart-color: rgb(255, 170, 0);
   color: rgba($color: #343a40, $alpha: 1);
   display: flex;
   justify-content: space-between;
+  align-items: center;
   position: relative;
+  padding: 3px 10px;
 }
 .nav-item {
+  font-size: 14px;
   display: none;
 }
 .nav-item:hover {
@@ -31,7 +42,6 @@ $chart-color: rgb(255, 170, 0);
   display: block;
 }
 .arrow {
-  // background-color: rgba($color: #00ffff, $alpha: .4);
   height: 20px;
   width: 20px;
 }
@@ -46,10 +56,14 @@ $chart-color: rgb(255, 170, 0);
   transform: translateX(-50%);
   text-align: center;
   border: 1px solid gray;
+  font-size: 14px;
+  width: max-content;
+  transition: .3s;
 }
 .modal-menu.active {
   display: block;
   top: -212px;
+  transition: .3s;
 }
 .modal-title {
   background-color: gray;
