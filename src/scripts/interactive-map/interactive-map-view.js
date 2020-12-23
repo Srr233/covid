@@ -1,6 +1,6 @@
 import L from 'leaflet';
 import EventEmitter from '../event-emitter';
-import { indicators } from './constants';
+import { indicators } from './interactive-map-constants';
 
 export default class InteractiveMapView {
   model;
