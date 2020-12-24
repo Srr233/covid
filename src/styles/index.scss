@@ -6,6 +6,9 @@
 @import './virtual-keyboard.scss';
 
 $color-dark: #343a40;
+$color-cases: #3f007d;
+$color-death: #67000d;
+$color-recovered: #00441b;
 
 body {
   padding: 0;
@@ -39,6 +42,7 @@ main {
       position: relative;
       width: 100%;
       height: 100%;
+      border-radius: 0.125rem;
       background-color: #f8f9fa;
 
       &[data-fullscreen='true'] {
@@ -66,7 +70,7 @@ main {
         border: none;
         background: white;
         outline: none;
-        box-shadow: 0 0 0.5rem rgba(0,0,0,0.2);
+        box-shadow: 0 1px 4px rgba(0,0,0,.3);
         border-radius: 0.125rem;
         transition: all 0.25s ease;
         opacity: 0.5;

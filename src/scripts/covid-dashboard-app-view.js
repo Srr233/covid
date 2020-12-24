@@ -99,5 +99,9 @@ export default class CovidDashboardAppView {
     );
     this.#elements.map.selectCountry(code);
     this.#elements.graph.buildCharts(code);
+
+    const graphNavigation = document.querySelector('.graph-navigation');
+    graphNavigation.addEventListener('click',
+      (event) => this.#emitter.emit('graphNavigationClick', event));
   }
 }
