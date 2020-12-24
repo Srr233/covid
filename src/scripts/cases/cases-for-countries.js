@@ -138,8 +138,6 @@ export default class ProcessTableData {
       let img = document.createElement('img');
       div.appendChild(img);
       img.src = `https://www.countryflags.io/${value.countryInfo.iso2}/shiny/64.png`;
-      img.style.width = '35px';
-      img.style.height = '30px';
       divWrapper.appendChild(div);
       document.querySelector('.table-data').appendChild(divWrapper);
     });
