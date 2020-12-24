@@ -4,10 +4,10 @@ button {
 .keyboard {  
   position: fixed;  
   left: -100%;
-  bottom: 3rem;
+  bottom: 2.25rem;
   padding: 0.5rem;
-  max-width: 30rem;
-  height: 15rem;
+  width: 20rem;
+  height: 10rem;
   display: grid;
   grid-gap: 0.25rem;
   transition: all 0.5s ease;
@@ -22,7 +22,7 @@ button {
   }
 }
 .key {
-  padding: 1vw;
+  padding: 0.25rem;
   display: flex;
   justify-content: center;
   align-items: center;
