@@ -12,11 +12,7 @@ export default class GraphController {
   initialize() {
     this.graphComponent = new GraphComponent();
     this.graphComponent.initialize();
-
-    this.navigation = this.graphComponent.navigation;
-    this.navigation.addEventListener('click', (event) => {
-      this.handleEvent(event.target);
-    });
+    this.addGraphServices();
 
     // this.modalMenu = this.graphComponent.modalMenu;
     // this.modalMenu.addEventListener('click', (event) => {
@@ -31,6 +27,15 @@ export default class GraphController {
     //   }
     // });
 
+    this.buildGlobalCharts();
+  }
+
+  addGraphServices() {
+    this.navigation = this.graphComponent.navigation;
+    this.navigation.addEventListener('click', (event) => {
+      this.handleEvent(event.target);
+    });
+
     this.navItemsArray = Object.values(this.navigation.children).filter((element) => {
       return element.className.includes('nav-item');
     });
@@ -40,10 +45,22 @@ export default class GraphController {
       return element.className.includes('chart');
     });
 
-    this.buildCharts();
+    services.setNavAttribute(this.navigation);
+  }
+
+  prepareForNewChats() {
+    const type = this.navigation.getAttribute('data-type');
+    const period = this.navigation.getAttribute('data-period');
+    const magnitude = this.navigation.getAttribute('data-magnitude');
+
+    this.graphComponent.graphDiv.remove();
+    this.graphComponent.initialize();
+    this.addGraphServices();
+    this.switchChart(type, period, magnitude);
   }
 
   buildCharts(countryCode) {
+    this.prepareForNewChats();
     if (countryCode) {
       fetch(this.apiUrl)
         .then((response) => {
