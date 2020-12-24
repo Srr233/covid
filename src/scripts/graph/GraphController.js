@@ -12,24 +12,15 @@ export default class GraphController {
   initialize() {
     this.graphComponent = new GraphComponent();
     this.graphComponent.initialize();
+    this.addGraphServices();
+    this.buildGlobalCharts();
+  }
 
+  addGraphServices() {
     this.navigation = this.graphComponent.navigation;
     this.navigation.addEventListener('click', (event) => {
       this.handleEvent(event.target);
     });
-
-    // this.modalMenu = this.graphComponent.modalMenu;
-    // this.modalMenu.addEventListener('click', (event) => {
-    //   this.handleModalMenuEvent(event.target);
-    // });
-    // const modalTitle = this.modalMenu.querySelector('.modal-title');
-    // const modal = this.modalMenu.getElementByClass()
-    // document.body.addEventListener('click', (event) => {
-    //   if (event.target !== modalTitle) {
-    //     this.modalMenu.classList.remove('active');
-    //     console.log(modal)
-    //   }
-    // });
 
     this.navItemsArray = Object.values(this.navigation.children).filter((element) => {
       return element.className.includes('nav-item');
@@ -40,10 +31,22 @@ export default class GraphController {
       return element.className.includes('chart');
     });
 
-    this.buildCharts();
+    services.setNavAttribute(this.navigation);
+  }
+
+  prepareForNewChats() {
+    const type = this.navigation.getAttribute('data-type');
+    const period = this.navigation.getAttribute('data-period');
+    const magnitude = this.navigation.getAttribute('data-magnitude');
+
+    this.graphComponent.graphDiv.remove();
+    this.graphComponent.initialize();
+    this.addGraphServices();
+    this.switchChart(type, period, magnitude);
   }
 
   buildCharts(countryCode) {
+    this.prepareForNewChats();
     if (countryCode) {
       fetch(this.apiUrl)
         .then((response) => {
@@ -74,9 +77,6 @@ export default class GraphController {
 
   handleEvent(target) {
     const activeNavItemIndex = this.navItemsArray.findIndex((elem) => elem.className.includes('active'));
-    if (target.className.includes('nav-item')) {
-      // this.showModalMenu();
-    }
 
     if (target.className.includes('left')) {
       services.handleNavArrows('left', activeNavItemIndex, this.navItemsArray, this.chartsArray);
@@ -86,61 +86,6 @@ export default class GraphController {
       services.handleNavArrows('right', activeNavItemIndex, this.navItemsArray, this.chartsArray);
     }
     services.setNavAttribute(this.navigation);
-  }
-
-  showModalMenu() {
-    this.modalMenu.classList.toggle('active');
-  }
-
-  handleModalMenuEvent(target) {
-    if (target.textContent === 'Daily Cases') {
-      this.switchChart('cases', 'today', 'absolute');
-      this.showModalMenu();
-    }
-    if (target.textContent === 'Daily Deaths') {
-      this.switchChart('deaths', 'today', 'absolute');
-      this.showModalMenu();
-    }
-    if (target.textContent === 'Daily Recovered') {
-      this.switchChart('recovered', 'today', 'absolute');
-      this.showModalMenu();
-    }
-    if (target.textContent === 'Daily Cases per 100k') {
-      this.switchChart('cases', 'today', 'per 100 thousand');
-      this.showModalMenu();
-    }
-    if (target.textContent === 'Daily Deaths per 100k') {
-      this.switchChart('deaths', 'today', 'per 100 thousand');
-      this.showModalMenu();
-    }
-    if (target.textContent === 'Daily Recovered per 100k') {
-      this.switchChart('recovered', 'today', 'per 100 thousand');
-      this.showModalMenu();
-    }
-    if (target.textContent === 'Cumulative Cases') {
-      this.switchChart('cases', 'total', 'absolute');
-      this.showModalMenu();
-    }
-    if (target.textContent === 'Cumulative Deaths') {
-      this.switchChart('deaths', 'total', 'absolute');
-      this.showModalMenu();
-    }
-    if (target.textContent === 'Cumulative Recovered') {
-      this.switchChart('recovered', 'total', 'absolute');
-      this.showModalMenu();
-    }
-    if (target.textContent === 'Cumulative Cases per 100k') {
-      this.switchChart('cases', 'total', 'per 100 thousand');
-      this.showModalMenu();
-    }
-    if (target.textContent === 'Cumulative Deaths per 100k') {
-      this.switchChart('deaths', 'total', 'per 100 thousand');
-      this.showModalMenu();
-    }
-    if (target.textContent === 'Cumulative Recovered per 100k') {
-      this.switchChart('recovered', 'total', 'per 100 thousand');
-      this.showModalMenu();
-    }
   }
 
   switchChart(caseType, period, magnitude) {
