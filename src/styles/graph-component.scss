@@ -4,10 +4,11 @@ $chart-color: rgb(255, 170, 0);
   color: red;
 }
 .graph {
+  padding: 0.25rem;
+  padding-top: 4rem;
   background-color: $background;
   position: relative;
-  user-select: none;
-  padding-top: 20px;
+  user-select: none;  
   height: 100%;
 }
 canvas {
@@ -29,7 +30,21 @@ canvas {
   justify-content: space-between;
   align-items: center;
   position: relative;
-  padding: 3px 10px;
+  padding: 0.25rem;
+  font-size: 1rem;
+  font-weight: 900;
+  text-align: center;
+
+  img {        
+    width: 1.5rem;
+    opacity: 0.5;
+    transition: all 0.5s ease;
+    
+    &:hover {
+        cursor: pointer;
+        opacity: 1;
+    }
+}
 }
 .nav-item {
   font-size: 14px;
