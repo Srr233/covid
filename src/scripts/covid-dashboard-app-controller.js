@@ -66,8 +66,11 @@ export default class CovidDashboardAppController {
   }
 
   changeIndicatorGraph(event, component) {
-    console.log(event, component);
-    // this.#model.changeIndicators(type, period, magnitude, component);
+    const type = event.currentTarget.getAttribute('data-type');
+    const period = event.currentTarget.getAttribute('data-period');
+    const magnitude = event.currentTarget.getAttribute('data-magnitude');
+
+    this.#model.changeIndicators(type, period, magnitude, component);
   }
 
   selectCountryFromMap() {

@@ -42,8 +42,23 @@ h3 {
 .cell-value {
     color: rgb(230, 0, 0);
 }
-.input-field {
-    cursor: pointer;
+.input-field {    
+    padding: 0.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    input {
+        width: 9rem;
+    }
+
+    img {
+        width: 2rem;
+        
+        &:hover {
+            cursor: pointer;
+        }
+    }
 }
 .hide {
     display: none;

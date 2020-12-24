@@ -32,11 +32,11 @@ export default class ProcessTableData {
     if (this.type === 'cases' && this.period === 'today' && this.magnitude === 'per 100 thousand') this.indicator = 'todayCases1';
     if (this.type === 'deaths' && this.period === 'total' && this.magnitude === 'absolute') this.indicator = 'deaths';
     if (this.type === 'deaths' && this.period === 'today' && this.magnitude === 'absolute') this.indicator = 'todayDeaths';
-    if (this.type === 'deaths' && this.period === 'total' && this.magnitude === 'per 100 thousand') this.indicator = 'DeathsPerOneMillion';
+    if (this.type === 'deaths' && this.period === 'total' && this.magnitude === 'per 100 thousand') this.indicator = 'deathsPerOneMillion';
     if (this.type === 'deaths' && this.period === 'today' && this.magnitude === 'per 100 thousand') this.indicator = 'todayDeaths1';
     if (this.type === 'recovered' && this.period === 'total' && this.magnitude === 'absolute') this.indicator = 'recovered';
     if (this.type === 'recovered' && this.period === 'today' && this.magnitude === 'absolute') this.indicator = 'todayRecovered';
-    if (this.type === 'recovered' && this.period === 'total' && this.magnitude === 'per 100 thousand') this.indicator = 'RecoveredPerOneMillion';
+    if (this.type === 'recovered' && this.period === 'total' && this.magnitude === 'per 100 thousand') this.indicator = 'recoveredPerOneMillion';
     if (this.type === 'recovered' && this.period === 'today' && this.magnitude === 'per 100 thousand') this.indicator = 'todayRecovered1';
     this.renderDataForNewIndicator();
     // this.processControllers();
