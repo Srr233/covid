@@ -42,7 +42,6 @@ export default class GraphComponent {
     this.container.appendChild(this.graphDiv);
 
     this.createNavigation();
-    // this.createModalMenu();
   }
 
   createNavigation() {
@@ -79,38 +78,6 @@ export default class GraphComponent {
       deathsPer100K,
       recoveredPer100K,
       rightArrowDiv
-    );
-  }
-
-  createModalMenu() {
-    const title = createDOMElement('div', 'modal-title', 'Select a Chart');
-    const newCases = createDOMElement('div', 'modal new-cases-modal', 'Daily Cases');
-    const newDeaths = createDOMElement('div', 'modal new-deaths-modal', 'Daily Deaths');
-    const newRecovered = createDOMElement('div', 'modal new-recovered-modal', 'Daily Recovered');
-    const newCasesPer100K = createDOMElement('div', 'modal new-cases-per100K-modal', 'Daily Cases per 100k');
-    const newDeathsPer100K = createDOMElement('div', 'modal new-deaths-per100K-modal', 'Daily Deaths per 100k');
-    const newRecoveredPer100K = createDOMElement('div', 'modal new-recovered-per100K-modal', 'Daily Recovered per 100k');
-    const cases = createDOMElement('div', 'modal cases-modal', 'Cumulative Cases');
-    const deaths = createDOMElement('div', 'modal deaths-modal', 'Cumulative Deaths');
-    const recovered = createDOMElement('div', 'modal recovered-modal', 'Cumulative Recovered');
-    const casesPer100K = createDOMElement('div', 'modal cases-per100K-modal', 'Cumulative Cases per 100k');
-    const deathsPer100K = createDOMElement('div', 'modal deaths-per100K-modal', 'Cumulative Deaths per 100k');
-    const recoveredPer100K = createDOMElement('div', 'modal recovered-per100K-modal', 'Cumulative Recovered per 100k');
-    this.modalMenu = createDOMElement('div', 'modal-menu', '', this.navigation);
-    this.modalMenu.append(
-      title,
-      newCases,
-      newDeaths,
-      newRecovered,
-      newCasesPer100K,
-      newDeathsPer100K,
-      newRecoveredPer100K,
-      cases,
-      deaths,
-      recovered,
-      casesPer100K,
-      deathsPer100K,
-      recoveredPer100K
     );
   }
 
