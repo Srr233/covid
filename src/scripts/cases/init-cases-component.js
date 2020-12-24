@@ -1,6 +1,7 @@
 import ProcessTableData from './cases-for-countries';
 import leftArrow from '../../assets/left-arrow.svg';
 import rightArrow from '../../assets/right-arrow.svg';
+import keyboardKey from '../../assets/keyboard-key.svg';
 
 export default class InitCasesComponent {
   list;
@@ -40,6 +41,22 @@ export default class InitCasesComponent {
     globalCasesTxt.classList.add('global-cases-txt');
     globalCases.classList.add('global-cases');
     dataTableHeader.classList.add('table-header');
+
+    const imgKeyboardKey = document.createElement('img');
+    imgKeyboardKey.setAttribute('src', keyboardKey);
+    imgKeyboardKey.setAttribute('alt', 'keyboard');
+    imgKeyboardKey.setAttribute('id', 'keyboard');
+
+    imgKeyboardKey.addEventListener('click', () => {
+      const keyboard = document.querySelector('.keyboard');
+
+      if (keyboard.getAttribute('close')) {
+        keyboard.setAttribute('close', '');
+      } else {
+        keyboard.setAttribute('close', 'true');
+      }
+    });
+
     inputWrapper.classList.add('input-field');
     dataTableWrapper.classList.add('table-data');
     lArrow.setAttribute('id', 'arrow-0');
@@ -69,10 +86,11 @@ export default class InitCasesComponent {
     pageWrapper.appendChild(arrowsWrapper);
     // document.body.appendChild(pageWrapper);
     globalCasesTxt.textContent = 'Global Cases';
-    dataTableHeader.textContent = 'Cases by Country/Region/Sovereignty';
-    lastUpdatedTxt.textContent = 'Last Updated at (M/D/YYYY)';
+    // dataTableHeader.textContent = 'Cases by Country/Region/Sovereignty';
+    // lastUpdatedTxt.textContent = 'Last Updated at (M/D/YYYY)';
     let inputField = document.createElement('INPUT');
     inputField.setAttribute('placeholder', 'Search');
     inputWrapper.appendChild(inputField);
+    inputWrapper.appendChild(imgKeyboardKey);
   }
 }

@@ -42,8 +42,6 @@ export default class CovidDashboardAppModel {
     this.#period = period;
     this.#magnitude = magnitude;
 
-    console.log(type, period, magnitude);
-
     this.#emitter.emit('changeIndicator', component);
   }
 

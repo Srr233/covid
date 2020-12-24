@@ -8,6 +8,7 @@ import { idComponentContainers } from './covid-dashboard-app-constants';
 import CovidDashboardAppModel from './covid-dashboard-app-model';
 import CovidDashboardAppView from './covid-dashboard-app-view';
 import CovidDashboardAppController from './covid-dashboard-app-controller';
+import keyboardInitialize from './virtual-keyboard/virtual-keyboard';
 import '../assets/rs-school-js.svg';
 
 export default class CovidDashboardApp {
@@ -37,6 +38,7 @@ export default class CovidDashboardApp {
       indicators.type.cases, indicators.period.total, indicators.magnitude.absolute
     );
 
+    keyboardInitialize();
     CovidDashboardApp.createFooter();
 
     const listNavigation = document.querySelector('.arrows-wrapper');

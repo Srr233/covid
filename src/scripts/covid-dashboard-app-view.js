@@ -7,13 +7,15 @@ export default class CovidDashboardAppView {
 
   #emitter;
 
+  #dataCell;
+
   constructor(model, elements) {
     this.#model = model;
     this.#elements = elements;
     this.#emitter = new EventEmitter();
 
     const mapLayer = document.querySelector('#interactive-map');
-    const dataCell = document.querySelectorAll('.data-cell');
+    this.#dataCell = document.querySelectorAll('.data-cell');
 
     this.#model.emitter.on('setFullscreenContainer', (id) => this.setFullscreenContainer(id));
     this.#model.emitter.on('changeIndicator', (component) => this.changeIndicatorComponents(component));
@@ -23,8 +25,9 @@ export default class CovidDashboardAppView {
       const id = event.currentTarget.getAttribute('id');
       this.#emitter.emit('buttonsFullscreenClick', id);
     }));
-    this.#elements.listNavigation.addEventListener('click',
-      (event) => this.#emitter.emit('listNavigationClick', event));
+    this.#elements.listNavigation.addEventListener('click', (event) => {
+      this.#emitter.emit('listNavigationClick', event);
+    });
     this.#elements.interactiveMapSetting.addEventListener('click',
       (event) => this.#emitter.emit('interactiveMapSettingClick', event));
     this.#elements.tableNavigation.addEventListener('click',
@@ -32,7 +35,7 @@ export default class CovidDashboardAppView {
     this.#elements.graphNavigation.addEventListener('click',
       (event) => this.#emitter.emit('graphNavigationClick', event));
     mapLayer.addEventListener('click', () => this.#emitter.emit('mapLayerClick'));
-    dataCell.forEach((cell) => cell.addEventListener('click', (event) => {
+    this.#dataCell.forEach((cell) => cell.addEventListener('click', (event) => {
       const id = event.currentTarget.getAttribute('id');
       this.#emitter.emit('dataCellClick', id);
     }));
@@ -64,7 +67,13 @@ export default class CovidDashboardAppView {
     if (component !== 'list') this.changeIndicatorList(type, period, magnitude);
     if (component !== 'map') this.changeIndicatorMap(type, period, magnitude);
     if (component !== 'table') this.changeIndicatorTable(type, period, magnitude);
-    // if (component !== 'graph') this.changeIndicatorGraph(type, period, magnitude);
+    if (component !== 'graph') this.changeIndicatorGraph(type, period, magnitude);
+
+    this.#dataCell = document.querySelectorAll('.data-cell');
+    this.#dataCell.forEach((cell) => cell.addEventListener('click', (e) => {
+      const id = e.currentTarget.getAttribute('id');
+      this.#emitter.emit('dataCellClick', id);
+    }));
   }
 
   changeIndicatorList(type, period, magnitude) {
@@ -80,14 +89,15 @@ export default class CovidDashboardAppView {
     this.#elements.table.setGlobal(type, period, magnitude);
   }
 
-  // changeIndicatorGraph(type, period, magnitude) {
-  //   // this.#elements.graph.
-  // }
+  changeIndicatorGraph(type, period, magnitude) {
+    this.#elements.graph.switchChart(type, period, magnitude);
+  }
 
   selectCountryComponents(code) {
     this.#elements.table.setCountry(
       this.#model.type, this.#model.period, this.#model.magnitude, code
     );
     this.#elements.map.selectCountry(code);
+    this.#elements.graph.buildCharts(code);
   }
 }
