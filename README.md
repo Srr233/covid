@@ -1,6 +1,10 @@
 # COVID-19 Dashboard
+
 This is a web application for tracking the spread of COVID-19 in the world and selected countries.<br>
+
 ## Demo
+
+[COVID-19 Dashboard](https://dmitryastapenko-covid-dashboard.netlify.app)<br>
 
 ## Available Scripts
 
