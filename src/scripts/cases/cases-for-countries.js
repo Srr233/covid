@@ -39,7 +39,6 @@ export default class ProcessTableData {
     if (this.type === 'recovered' && this.period === 'total' && this.magnitude === 'per 100 thousand') this.indicator = 'recoveredPerOneMillion';
     if (this.type === 'recovered' && this.period === 'today' && this.magnitude === 'per 100 thousand') this.indicator = 'todayRecovered1';
     this.renderDataForNewIndicator();
-    // this.processControllers();
   }
 
   processControllers() {
@@ -52,37 +51,41 @@ export default class ProcessTableData {
       'Global Cases per 100,000', 'Global Deaths per 100,000', 'Global Recovered per 100,000',
       'Global Cases per 100,000 for today', 'Global Deaths per 100,000 for today', 'Global Recovered per 100,000 for today'];
     const globalCasesTxt = document.querySelector('.global-cases-txt');
-    // const globalCasesTxt = document.querySelector(".global-cases-txt");
     const arrowsWrapper = document.querySelector('.arrows-wrapper');
     const leftArrow = arrowsWrapper.querySelector('#arrow-0');
     const rightArrow = arrowsWrapper.querySelector('#arrow-1');
     const inputField = document.querySelector('.input-field');
+
     inputField.addEventListener('input', (e) => { this.searchData(e); });
+
     let index = criterias.indexOf(this.indicator);
+
     arrowsWrapper.childNodes[1].nodeValue = criteriasNames[index];
     globalCasesTxt.textContent = globalNames[index];
     this.clickOnCellData();
+
     rightArrow.addEventListener('click', () => {
-      let index = criterias.indexOf(this.indicator);
-      index = (index === criterias.length - 1) ? 0 : index + 1;
-      this.indicator = criterias[index];
-      arrowsWrapper.childNodes[1].nodeValue = criteriasNames[index];
-      globalCasesTxt.textContent = globalNames[index];
-      this.renderDataForNewIndicator(index);
+      let i = criterias.indexOf(this.indicator);
+      i = (i === criterias.length - 1) ? 0 : i + 1;
+      this.indicator = criterias[i];
+      arrowsWrapper.childNodes[1].nodeValue = criteriasNames[i];
+      globalCasesTxt.textContent = globalNames[i];
+      this.renderDataForNewIndicator(i);
     });
+
     leftArrow.addEventListener('click', () => {
-      let index = criterias.indexOf(this.indicator);
-      index = (index === 0) ? 0 : index - 1;
-      this.indicator = criterias[index];
-      arrowsWrapper.childNodes[1].nodeValue = criteriasNames[index];
-      globalCasesTxt.textContent = globalNames[index];
-      this.renderDataForNewIndicator(index);
+      let i = criterias.indexOf(this.indicator);
+      i = (i === 0) ? 0 : i - 1;
+      this.indicator = criterias[i];
+      arrowsWrapper.childNodes[1].nodeValue = criteriasNames[i];
+      globalCasesTxt.textContent = globalNames[i];
+      this.renderDataForNewIndicator(i);
     });
   }
 
   renderDataForNewIndicator() {
     this.sortNumbers();
-    this.resetData();
+    ProcessTableData.resetData();
     this.renderData();
     this.countGlobalCases();
     this.clickOnCellData();
@@ -143,7 +146,7 @@ export default class ProcessTableData {
     });
   }
 
-  resetData() {
+  static resetData() {
     document.querySelectorAll('.data-cell').forEach((el) => el.remove());
   }
 

@@ -11,22 +11,19 @@ export default class InitCasesComponent {
   }
 
   startWork(type, period, magnitude) {
-    this.makeComponentLayout();
+    InitCasesComponent.makeComponentLayout();
     const process = new ProcessTableData(this.countriesDataList, type, period, magnitude);
     this.list = process;
     process.startProcessing();
   }
 
-  makeComponentLayout() {
-    // const pageWrapper = document.createElement('div');
+  static makeComponentLayout() {
     const pageWrapper = document.querySelector('.component-cases-for-countries');
     const globalCases = document.createElement('div');
     const globalCasesTxt = document.createElement('h3');
     const globalCasesVal = document.createElement('div');
     const dataTableHeader = document.createElement('h3');
-    // const menuWrapper = document.createElement('div');
     const inputWrapper = document.createElement('div');
-    // const keyboardButton = document.createElement('button');
     const dataTableWrapper = document.createElement('div');
     const arrowsWrapper = document.createElement('div');
     const lastUpdatedWrapper = document.createElement('div');
@@ -64,13 +61,9 @@ export default class InitCasesComponent {
     rArrow.setAttribute('id', 'arrow-1');
     rArrow.setAttribute('src', `${rightArrow}`);
     arrowsWrapper.classList.add('arrows-wrapper');
-    // menuWrapper.classList.add('menu-wrapper');
-    // keyboardButton.classList.add('keyboard-button');
     lastUpdatedWrapper.classList.add('last-updated-wrapper');
     lastUpdatedValue.classList.add('last-updated-value');
     lastUpdatedTxt.classList.add('last-updated-txt');
-    // menuWrapper.appendChild(inputWrapper);
-    // menuWrapper.appendChild(keyboardButton);
     arrowsWrapper.appendChild(lArrow);
     arrowsWrapper.appendChild(txt);
     arrowsWrapper.appendChild(rArrow);
@@ -80,14 +73,10 @@ export default class InitCasesComponent {
     globalCases.appendChild(globalCasesVal);
     pageWrapper.appendChild(globalCases);
     pageWrapper.appendChild(dataTableHeader);
-    // pageWrapper.appendChild(menuWrapper);
     pageWrapper.appendChild(inputWrapper);
     pageWrapper.appendChild(dataTableWrapper);
     pageWrapper.appendChild(arrowsWrapper);
-    // document.body.appendChild(pageWrapper);
     globalCasesTxt.textContent = 'Global Cases';
-    // dataTableHeader.textContent = 'Cases by Country/Region/Sovereignty';
-    // lastUpdatedTxt.textContent = 'Last Updated at (M/D/YYYY)';
     let inputField = document.createElement('INPUT');
     inputField.setAttribute('placeholder', 'Search');
     inputWrapper.appendChild(inputField);

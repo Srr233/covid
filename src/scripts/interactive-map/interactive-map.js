@@ -20,11 +20,11 @@ export default class InteractiveMap {
   static setting;
 
   static controller;
-  
+
   static model;
 
   static async initialize(dataCovidCountry) {
-    const data = this.dataPreparation(dataCovidCountry, DataGeoCountry);   
+    const data = this.dataPreparation(dataCovidCountry, DataGeoCountry);
 
     InteractiveMap.createContainer();
     InteractiveMap.createMap();
